@@ -1,0 +1,43 @@
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    border-spacing: 0;
+    text-align: center;
+    margin: 0 80px;
+    font-size: 24px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 420px;
+}
+
+th {
+    background: rgb(29, 29, 29);
+    color: coral;
+}
+
+th, td {
+    border: 1px solid rgb(29, 29, 29);
+    padding: 10px;
+}
+
+select {
+    color: coral;
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: rgb(29, 29, 29);
+}
+
+option {
+    color: coral;
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: rgb(29, 29, 29);
+}
+
+.edit-form {
+    margin-top: 7%;
+    margin-bottom: 7%;
+}
+
+.fa-ban {
+    color: red;
+    cursor: pointer;
+}

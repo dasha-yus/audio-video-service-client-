@@ -1,0 +1,67 @@
+.audio {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 80px;
+    width: 93%;
+    margin-top: -40px;
+    margin-bottom: 20px;
+  }
+  
+.child {
+    width: 25%;
+    margin-top: 30px;
+}
+
+h3 {
+    text-align: center;
+    margin-left: -15%;
+    padding: 0;
+    padding-top: 10px;
+    font-size: 24px;
+}
+
+h5 {
+    text-align: center;
+    margin-left: -15%;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.single-post {
+    padding: 0 80px;
+}
+
+.mp3 {
+    margin-left: 40px;
+}
+
+.audio-main {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 100px;
+}
+
+#description {
+    margin-top: -22px;
+    margin-left: 40px;
+    font-size: 24px;
+}
+
+.search {
+    background-color: rgb(23, 23, 23);
+    color: coral;
+    font-size: 15px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+    width: 250px;
+    height: 40px;
+    padding: 10px;
+    position: absolute;
+    top: 1.8%;
+    left: 75%;
+    transform: translate(-115%, 0);
+    border-bottom: 2px solid coral;
+    font-weight: bold;
+}

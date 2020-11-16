@@ -1,0 +1,10 @@
+footer {
+    text-align: center;
+    background-color: rgb(29, 29, 29);
+    color: coral;
+    margin-top: 30px;
+    padding: 20px;
+    padding-top: 32px;
+    font-size: 14px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
