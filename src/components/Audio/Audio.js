@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from "react-router-dom";
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import UserContext from '../../context/UserContext'
 
 const Audio = () => {
     const { id } = useParams();
     const [post, setPost] = useState();
-
     const {userData} = useContext(UserContext)
-    const history = useHistory()
 
     useEffect(() => {
         axios.get(`http://localhost:5000/audio/${id}`).then(result => {
@@ -32,12 +30,15 @@ const Audio = () => {
 
     const makeComment = (text, id) => {
         axios.put(`http://localhost:5000/audio/${id}/comment`, {text: text, user: userData.user.name})
-            .then(res => setPost(res.data))
+            .then(res => {
+                setPost(res.data)
+                document.getElementById("comment-form").reset();
+            })
             .catch(error => console.log(error))
     }
 
     const addToPlaylist = (song, singer, image, userId) => {
-        axios.put(`http://localhost:5000/video/add/${userId}`, {song: song, singer: singer, image: image})
+        axios.put(`http://localhost:5000/audio/add/${userId}`, {song: song, singer: singer, image: image})
             .then(alert('The audio was successfully added to the playlist'))
             .then(res => console.log(res.data))
             .catch(error => console.log(error))
@@ -73,7 +74,7 @@ const Audio = () => {
             {typeof userData.token == "undefined"
             ? <span />
             : (
-                <form onSubmit={(e) => 
+                <form id='comment-form' onSubmit={(e) => 
                     {e.preventDefault()
                     makeComment(e.target[0].value, post?._id)
                 }} className='comment-form'>

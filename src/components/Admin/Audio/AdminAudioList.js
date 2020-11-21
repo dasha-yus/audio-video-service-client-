@@ -17,12 +17,6 @@ export default class AdminAudioList extends Component {
     })
   }
 
-  componentDidUpdate() {
-    axios.get("http://localhost:5000/audio").then(res => {
-      this.setState({ audios: res.data });
-    })
-  }
-
   postSelectedHandler = (id) => {
     this.setState({selectedPostId: id});
   }

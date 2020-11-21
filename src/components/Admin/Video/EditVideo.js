@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, {Component, useEffect, useState} from 'react'
+import React, { Component } from 'react'
 
 import '../Admin.css'
 
@@ -35,6 +35,9 @@ export default class EditVideo extends Component {
                 description: res.data.description
             });
         })
+        .then(axios.get("http://localhost:5000/video").then(res => {
+            this.setState({ videos: res.data });
+        }))
         .catch((error) => {
             console.log(error);
         })
@@ -61,9 +64,6 @@ export default class EditVideo extends Component {
     }
 
     getVideoTopics = array => {
-        axios.get("http://localhost:5000/video").then(res => {
-            this.setState({ videos: res.data });
-        })
         let set = new Set()
         array.map(video => {
           set.add(video.topic)
@@ -95,7 +95,6 @@ export default class EditVideo extends Component {
     render() {
         return (
             <div className='align'>
-                {console.log(this.state.topicsList)}
                 <div className='card edit-video'>
                     <form onSubmit={this.onSubmit}>
                         <div className='inputs'>

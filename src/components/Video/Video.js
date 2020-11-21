@@ -33,7 +33,10 @@ const Video = () => {
 
     const makeComment = (text, id) => {
         axios.put(`http://localhost:5000/video/${id}/comment`, {text: text, user: userData.user.name})
-            .then(res => setPost(res.data))
+            .then(res => {
+                setPost(res.data)
+                document.getElementById("comment-form").reset();
+            })
             .catch(error => console.log(error))
     }
 
@@ -55,6 +58,7 @@ const Video = () => {
             </div>
             <h6>{post?.description}</h6>
 
+            {/* like the video */}
             <div className='likes'>
                 {typeof userData.token == "undefined"
                 ? <span />
@@ -65,16 +69,18 @@ const Video = () => {
                 <h6>{post?.likes.length} likes</h6>
             </div>
             
+            {/* add to playlist */}
             {typeof userData.token == "undefined"
             ? <span />
             : (
                 <Link onClick={() => addToPlaylist(post?.title, post?.image, userData.user.id)} className='button edit'>Add to Playlist</Link>
             )}
 
+            {/* add a comment */}
             {typeof userData.token == "undefined"
             ? <span />
             : (
-                <form onSubmit={(e) => 
+                <form id='comment-form' onSubmit={(e) => 
                     {e.preventDefault()
                     makeComment(e.target[0].value, post?._id)
                 }} className='comment-form'>
@@ -82,6 +88,7 @@ const Video = () => {
                     <button id='submit'>Submit</button>
                 </form>
             )}
+
             {/* comments block */}
             <div className="comments">
                 {post?.comments.map((comment, i) => (

@@ -1,47 +1,12 @@
-/* .videos {
-    background-color: coral;
-}
-
-h2 {
-    color: rgb(29, 29, 29);
-    font-size: 25px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding: 30px 80px;
-}
-
-h4 {
-    color: rgb(29, 29, 29);
-    font-size: 15px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    text-align: center;
-    margin-left: -28px;
-    padding-top: 5px;
-}
-
-a {
-    text-decoration: none;
-    color: rgb(29, 29, 29);
-}
-
-a:hover {
-    text-decoration: none;
-}
-
-/* .list {
+.category {
     display: flex;
     justify-content: space-between;
-    padding-left: 80px;
-    padding-right: 40px;
-} */
-
-/* .img {
-    width: 100%;
 }
 
-.hide {
-    display: none;
+.delete-category {
+    cursor: pointer;
 }
 
-mark {
-    background: white;
-} */
+.delete-category:hover {
+    color: white;
+}

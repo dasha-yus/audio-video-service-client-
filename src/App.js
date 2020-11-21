@@ -25,6 +25,8 @@ import EditVideo from './components/Admin/Video/EditVideo'
 import EditUser from './components/User/EditUser'
 import EditAudio from './components/Admin/Audio/EditAudio'
 
+import Error404 from './components/errors/Error404'
+
 import './index.css'
 
 function App() {
@@ -84,6 +86,7 @@ function App() {
             <Route path="/admin/users/edit/:id" exact component={EditUser}></Route>
             <Route path="/admin/:id" exact component={AdminSingleVideo}></Route>
             
+            <Route path='*' exact component={Error404} />
           </Switch>
           <Footer />
         </div>

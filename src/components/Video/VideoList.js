@@ -1,8 +1,7 @@
-import React, {Component, Fragment} from 'react'
-import axios from 'axios';
+import React, {Component } from 'react'
+import axios from 'axios'
 import './VideoList.css'
-import UserContext from '../../context/UserContext';
-import { withRouter } from 'react-router-dom';
+import UserContext from '../../context/UserContext'
 import AllVideos from '../common/VideoList'
 
 export default class VideoList extends Component {

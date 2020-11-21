@@ -1,9 +1,11 @@
-import React from 'react'
-import { Link, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import UserContext from '../../context/UserContext'
+import axios from 'axios'
 
 const VideoList = ({ videos, search, link }) => {
-  let numberOfViews = window.$numberOfViews
-  const history = useHistory()
+  let views = 0
+  const {userData} = useContext(UserContext)
 
   const getVideoTopics = array => {
       let set = new Set()
@@ -13,11 +15,26 @@ const VideoList = ({ videos, search, link }) => {
       return Array.from(set)
   }
 
-  // const limitNumberOfViews = () => {
-  //   console.log(numberOfViews)
-  //   ++numberOfViews
-  //   if (numberOfViews === 10) history.push('/login')
-  // }
+  const limitNumberOfViews = (e) => {
+    views = localStorage.getItem('numberOfViews');
+    // localStorage.setItem('numberOfViews', 0);
+    if (typeof userData.token == "undefined") {
+      if (views >= 10) {
+        e.preventDefault()
+        alert("Please, log in to continue")
+      }
+      localStorage.setItem('numberOfViews', ++views)
+    }
+  }
+
+  const deleteCategory = topic => {
+    const conf = window.confirm(`Are you sure you want to delete category ${topic}?`)
+    if (conf) {
+      axios.put('http://localhost:5000/video/delete-category', {topic: topic})
+        .then(res => console.log(res.data))
+        .catch(error => console.log(error))
+    }
+  }
 
   return (
     <div className='videos'>
@@ -25,7 +42,7 @@ const VideoList = ({ videos, search, link }) => {
         <h2>Popular</h2>
         <div className='list'>
           {videos.sort((a, b) => b.numberOfViews - a.numberOfViews).slice(0, 7).filter(video => video.title.toLowerCase().includes(search)).map((filteredVideo, i) => (
-            <Link to={link + filteredVideo._id} key={i} >
+            <Link to={link + filteredVideo._id} key={i} onClick={limitNumberOfViews}>
               <img className='img' src={filteredVideo.image}></img>
               <h4>{filteredVideo.title}</h4>
             </Link>
@@ -35,10 +52,17 @@ const VideoList = ({ videos, search, link }) => {
       <div>
         {getVideoTopics(videos).map(topic => (
           <div>
-            <h2>{topic}</h2>
+            <div className='category'>
+              <h2>{topic}</h2>
+              {typeof userData.token == "undefined" || userData.user.role == 'user'
+              ? <span />
+              : (
+                <h2 className='delete-category' onClick={() => deleteCategory(topic)}>Delete category</h2>
+              )}
+            </div>
             <div className='list'>
               {videos.filter(video => video.topic === topic).filter(video => video.title.toLowerCase().includes(search)).map((filteredVideo, i) => (
-                <Link to={link + filteredVideo._id} key={i}>
+                <Link to={link + filteredVideo._id} key={i} onClick={limitNumberOfViews}>
                   <img className='img' src={filteredVideo.image}></img>
                   <h4>{filteredVideo.title}</h4>
                 </Link>

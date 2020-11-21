@@ -1,4 +1,4 @@
-import React, {Component, useContext} from 'react'
+import React, {Component} from 'react'
 import axios from 'axios';
 
 import './User.css'
@@ -16,14 +16,10 @@ export default class UsersList extends Component {
     })
   }
 
-  componentDidUpdate() {
-    axios.get("http://localhost:5000/admin/users").then(res => {
-      this.setState({ users: res.data });
-    })
-  }
-
   deleteUser = (id) => {
     axios.delete(`http://localhost:5000/admin/users/delete/${id}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   }
 
   render() {

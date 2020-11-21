@@ -55,12 +55,9 @@ export default class EditUser extends Component {
         };
 
         axios.put('http://localhost:5000/admin/users/edit/' + this.props.match.params.id, userObject)
-            .then((res) => {
-            console.log(res.data)
-            }).catch((error) => {
-            console.log(error)
-            })
-
+            .then(res => console.log(res.data))
+            .catch(error => console.log(error))
+            
         this.props.history.push('/admin/users')
     }
 

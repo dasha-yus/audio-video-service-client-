@@ -17,12 +17,6 @@ export default class AdminVideoList extends Component {
     })
   }
 
-  componentDidUpdate() {
-    axios.get("http://localhost:5000/video").then(res => {
-      this.setState({ videos: res.data });
-    })
-  }
-
   postSelectedHandler = id => {
     this.setState({selectedPostId: id});
   }
