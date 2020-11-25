@@ -18,7 +18,10 @@ export default class UsersList extends Component {
 
   deleteUser = (id) => {
     axios.delete(`http://localhost:5000/admin/users/delete/${id}`)
-      .then(res => console.log(res))
+      .then(res => {
+        const users = this.state.users.filter(user => user._id !== id)
+        this.setState({ users })
+      })
       .catch(err => console.log(err))
   }
 

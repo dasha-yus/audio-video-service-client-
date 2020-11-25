@@ -11,11 +11,9 @@ export default class VideoList extends Component {
     search: ""
   };
 
-  static context = UserContext;
-
   componentDidMount () {
     axios.get("http://localhost:5000/video").then(res => {
-      this.setState({ videos: res.data });
+      this.setState({ videos: res.data })
     })
   }
 

@@ -16,6 +16,8 @@ const AdminSingleAudio = () => {
 
     const deleteAudio = (id) => {
         axios.delete(`http://localhost:5000/admin/audio/delete/${id}`)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         history.push('/admin/audio')
     }
 

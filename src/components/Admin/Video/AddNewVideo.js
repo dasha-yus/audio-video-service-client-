@@ -15,15 +15,8 @@ export default function AddNewVideo() {
     const history = useHistory()
     const [topicsList, setTopicsList] = useState([])
 
-    const addVideo = () => {
-        axios.post('http://localhost:5000/admin/new', {...form})
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err));
-        history.push('/admin')
-    }
-
     useEffect(() => {
-        axios.get("http://localhost:5000/video").then((res) => {
+        axios.get("http://localhost:5000/video").then(res => {
             let set = new Set()
             res.data.map(video => {
                 set.add(video.topic)
@@ -31,6 +24,13 @@ export default function AddNewVideo() {
             setTopicsList(Array.from(set))
         })
     })
+
+    const addVideo = () => {
+        axios.post('http://localhost:5000/admin/new', {...form})
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
+        history.push('/admin')
+    }
     
     const changeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })

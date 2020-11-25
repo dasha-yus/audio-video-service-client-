@@ -22,6 +22,7 @@ export default function Register() {
 
   const submit = async (e) => {
     e.preventDefault()
+    
     try {
       const newUser = {...form}
       await axios.post('http://localhost:5000/users/register', newUser)

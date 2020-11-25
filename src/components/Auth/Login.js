@@ -20,12 +20,14 @@ export default function Login() {
 
   const submit = async (e) => {
     e.preventDefault()
+
     try {
       const loginRes = await axios.post('http://localhost:5000/users/login', {...form})
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user
       })
+      
       if (loginRes.data.user.role === 'admin') {
         history.push("/admin")
       } else {
