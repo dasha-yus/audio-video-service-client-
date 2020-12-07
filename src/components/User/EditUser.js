@@ -29,7 +29,7 @@ export default class EditUser extends Component {
             });
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error)
         })
     }
 
@@ -65,13 +65,14 @@ export default class EditUser extends Component {
         return (
             <div className='align'>
                 <div className='card edit-form'>
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={ this.onSubmit }>
                         <div className='inputs'>
                             <div className='input'>
                                 <input
                                     type="text"
                                     name="name"
-                                    value={this.state.name} onChange={this.onChangeName}
+                                    value={ this.state.name }
+                                    onChange={ this.onChangeName }
                                 />
                                 <i class="fas fa-user"></i>
                             </div>
@@ -79,11 +80,12 @@ export default class EditUser extends Component {
                                 <input
                                     type="text"
                                     name="email"
-                                    value={this.state.email} onChange={this.onChangeEmail}
+                                    value={ this.state.email }
+                                    onChange={ this.onChangeEmail }
                                 />
                                 <i class="fas fa-at"></i>
                             </div>
-                            <select name="role" value={this.state.role} onChange={this.onChangeRole} className='input'>
+                            <select name="role" value={ this.state.role } onChange={ this.onChangeRole } className='input'>
                                 <option>user</option>
                                 <option>admin</option>
                             </select>

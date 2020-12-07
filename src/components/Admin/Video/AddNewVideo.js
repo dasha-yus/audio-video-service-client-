@@ -1,6 +1,6 @@
 import axios from 'axios'
-import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import '../Admin.css'
 
@@ -26,9 +26,9 @@ export default function AddNewVideo() {
     })
 
     const addVideo = () => {
-        axios.post('http://localhost:5000/admin/new', {...form})
+        axios.post('http://localhost:5000/admin/new', { ...form })
             .then(res => console.log(res.data))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
         history.push('/admin')
     }
     
@@ -39,13 +39,13 @@ export default function AddNewVideo() {
     return (
         <div className='align'>
             <div className='card'>
-                <form onSubmit={addVideo}>
+                <form onSubmit={ addVideo }>
                     <div className='inputs'>
                         <div className='input'>
-                            <input id='topic' type="text" list='topics' name="topic" value={form.topic} onChange={changeHandler} placeholder='Select a topic'></input>
-                            <datalist id='topics' name="topic" value={form.topic} onChange={changeHandler}>
+                            <input id='topic' type="text" list='topics' name="topic" value={ form.topic } onChange={ changeHandler } placeholder='Select a topic'></input>
+                            <datalist id='topics' name="topic" value={form.topic} onChange={ changeHandler }>
                                 {topicsList.map(topic => (
-                                    <option>{topic}</option>
+                                    <option>{ topic }</option>
                                 ))}
                             </datalist>
                             <i class="fas fa-paragraph"></i>
@@ -55,8 +55,8 @@ export default function AddNewVideo() {
                                 placeholder="Title"
                                 type="text"
                                 name="title"
-                                value={form.title}
-                                onChange={changeHandler}
+                                value={ form.title }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-heading"></i>
                         </div>
@@ -65,8 +65,8 @@ export default function AddNewVideo() {
                                 placeholder="Image"
                                 type="text"
                                 name="image"
-                                value={form.image}
-                                onChange={changeHandler}
+                                value={ form.image }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-image"></i>
                         </div>
@@ -75,8 +75,8 @@ export default function AddNewVideo() {
                                 placeholder="Video"
                                 type="text"
                                 name="video"
-                                value={form.video}
-                                onChange={changeHandler}
+                                value={ form.video }
+                                onChange={ changeHandler }
                             />
                             <i class="fab fa-youtube"></i>
                         </div>
@@ -85,8 +85,8 @@ export default function AddNewVideo() {
                                 placeholder="Description"
                                 type="text"
                                 name="description"
-                                value={form.description}
-                                onChange={changeHandler}
+                                value={ form.description }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-align-justify"></i>
                         </div>

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import React, {useEffect, useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import '../Admin.css'
 
@@ -17,9 +17,9 @@ export default function AddNewAudio() {
     const [topicsList, setTopicsList] = useState([])
 
     const addAudio = () => {
-        axios.post('http://localhost:5000/admin/audio/new', {...form})
+        axios.post('http://localhost:5000/admin/audio/new', { ...form })
             .then(res => console.log(res.data))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
         history.push('/admin/audio')
     }
 
@@ -40,12 +40,12 @@ export default function AddNewAudio() {
     return (
         <div className='align'>
             <div className='card'>
-                <form onSubmit={addAudio}>
+                <form onSubmit={ addAudio }>
                     <div className='inputs'>
                         <div className='input'>
                             <input id='topic' type="text" list='alboms' name="albom" value={form.albom} onChange={changeHandler} placeholder='Select an albom'></input>
                             <datalist id='alboms' name="albom" value={form.albom} onChange={changeHandler}>
-                                {topicsList.map(albom => (
+                                 {topicsList.map(albom => (
                                     <option>{albom}</option>
                                 ))}
                             </datalist>
@@ -56,8 +56,8 @@ export default function AddNewAudio() {
                                 placeholder="Song"
                                 type="text"
                                 name="song"
-                                value={form.song}
-                                onChange={changeHandler}
+                                value={ form.song }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-music"></i>
                         </div>
@@ -66,8 +66,8 @@ export default function AddNewAudio() {
                                 placeholder="Singer"
                                 type="text"
                                 name="singer"
-                                value={form.singer}
-                                onChange={changeHandler}
+                                value={ form.singer }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-user-alt"></i>
                         </div>
@@ -76,8 +76,8 @@ export default function AddNewAudio() {
                                 placeholder="Image"
                                 type="text"
                                 name="image"
-                                value={form.image}
-                                onChange={changeHandler}
+                                value={ form.image }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-image"></i>
                         </div>
@@ -86,8 +86,8 @@ export default function AddNewAudio() {
                                 placeholder="Description"
                                 type="text"
                                 name="description"
-                                value={form.description}
-                                onChange={changeHandler}
+                                value={ form.description }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-align-justify"></i>
                         </div>
@@ -96,8 +96,8 @@ export default function AddNewAudio() {
                                 placeholder="mp3"
                                 type="text"
                                 name="mp3"
-                                value={form.mp3}
-                                onChange={changeHandler}
+                                value={ form.mp3 }
+                                onChange={ changeHandler }
                             />
                             <i class="fas fa-file-audio"></i>
                         </div>

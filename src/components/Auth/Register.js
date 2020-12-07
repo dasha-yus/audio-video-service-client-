@@ -1,8 +1,6 @@
-import {Link} from 'react-router-dom'
-import React, {useContext, useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory, Link } from 'react-router-dom'
 import axios from 'axios'
-import UserContext from '../../context/UserContext'
 import ErrorNotice from '../errors/ErrorNotice'
 
 import './Auth.css'
@@ -17,7 +15,6 @@ export default function Register() {
     name: ''
   })
 
-  const {setUserData} = useContext(UserContext)
   const history = useHistory()
 
   const submit = async (e) => {
@@ -26,6 +23,7 @@ export default function Register() {
     try {
       const newUser = {...form}
       await axios.post('http://localhost:5000/users/register', newUser)
+      alert('A new user account was successfully created')
       history.push('/login')
     } catch (err) {
       err.response.data.msg && setError(err.response.data.msg)
@@ -50,7 +48,6 @@ export default function Register() {
                 <div></div>
             </div>
             <form onSubmit={submit}>
-                
                 <div className='inputs'>
                     <div className='input'>
                         <input

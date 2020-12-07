@@ -1,13 +1,13 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../../context/UserContext'
 
 export default function NavbarOptions() {
-    const {userData, setUserData} = useContext(UserContext)
+    const { userData, setUserData } = useContext(UserContext)
 
     return (
         <span>
-            {userData.user ? (
+            { userData.user ? (
                 <span>
                     {userData.user.role === 'admin'  ? (
                         <span>

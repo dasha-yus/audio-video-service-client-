@@ -1,10 +1,9 @@
 import React, {Component } from 'react'
 import axios from 'axios'
 import './VideoList.css'
-import UserContext from '../../context/UserContext'
-import AllVideos from '../common/VideoList'
+import VideoList from '../common/VideoList'
 
-export default class VideoList extends Component {
+export default class Videos extends Component {
   state = {
     videos: [],
     selectedPostId: null,
@@ -18,7 +17,7 @@ export default class VideoList extends Component {
   }
 
   postSelectedHandler = id => {
-    this.setState({selectedPostId: id});
+    this.setState({ selectedPostId: id })
   }
 
   searchChanged = event => {
@@ -26,19 +25,18 @@ export default class VideoList extends Component {
   }
 
   render() {
-    const {videos} = this.state 
-    const {search} = this.state
+    const { videos } = this.state 
+    const { search } = this.state
 
     return (
       <div>
         <input type='text' onChange={this.searchChanged} value={this.state.search} className='search' placeholder='Search'/>
-        <AllVideos
-          videos = {videos}
-          search = {search}
+        <VideoList
+          videos = { videos }
+          search = { search }
           link = "/"
         />
       </div>
-      
     )
   }
 }

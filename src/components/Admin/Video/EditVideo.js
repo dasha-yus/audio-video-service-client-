@@ -7,12 +7,12 @@ export default class EditVideo extends Component {
     constructor(props) {
         super(props)
     
-        this.onChangeTopic = this.onChangeTopic.bind(this);
-        this.onChangeTitle = this.onChangeTitle.bind(this);
-        this.onChangeImage = this.onChangeImage.bind(this);
-        this.onChangeVideo = this.onChangeVideo.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeTopic = this.onChangeTopic.bind(this)
+        this.onChangeTitle = this.onChangeTitle.bind(this)
+        this.onChangeImage = this.onChangeImage.bind(this)
+        this.onChangeVideo = this.onChangeVideo.bind(this)
+        this.onChangeDescription = this.onChangeDescription.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
             topic: '',
@@ -36,10 +36,10 @@ export default class EditVideo extends Component {
             });
         })
         .then(axios.get("http://localhost:5000/video").then(res => {
-            this.setState({ videos: res.data });
+            this.setState({ videos: res.data })
         }))
         .catch((error) => {
-            console.log(error);
+            console.log(error)
         })
     }
 
@@ -98,9 +98,9 @@ export default class EditVideo extends Component {
                 <div className='card edit-video'>
                     <form onSubmit={this.onSubmit}>
                         <div className='inputs'>
-                            <select name="topic" value={this.state.topic} onChange={this.onChangeTopic} className='input'>
-                                {this.getVideoTopics(this.state.videos).map(topic => (
-                                    <option>{topic}</option>
+                            <select name="topic" value={ this.state.topic } onChange={this.onChangeTopic} className='input'>
+                                { this.getVideoTopics(this.state.videos).map(topic => (
+                                    <option>{ topic }</option>
                                 ))}
                             </select>
                             <div className='input'>
@@ -108,7 +108,8 @@ export default class EditVideo extends Component {
                                     placeholder="Title"
                                     type="text"
                                     name="title"
-                                    value={this.state.title} onChange={this.onChangeTitle}
+                                    value={ this.state.title }
+                                    onChange={ this.onChangeTitle }
                                 />
                                 <i class="fas fa-heading"></i>
                             </div>
@@ -117,7 +118,8 @@ export default class EditVideo extends Component {
                                     placeholder="Image"
                                     type="text"
                                     name="image"
-                                    value={this.state.image} onChange={this.onChangeImage}
+                                    value={ this.state.image }
+                                    onChange={ this.onChangeImage }
                                 />
                                 <i class="fas fa-image"></i>
                             </div>
@@ -126,7 +128,8 @@ export default class EditVideo extends Component {
                                     placeholder="Video"
                                     type="text"
                                     name="video"
-                                    value={this.state.video} onChange={this.onChangeVideo}
+                                    value={ this.state.video }
+                                    onChange={ this.onChangeVideo }
                                 />
                                 <i class="fab fa-youtube"></i>
                             </div>
@@ -135,7 +138,8 @@ export default class EditVideo extends Component {
                                     placeholder="Description"
                                     type="text"
                                     name="description"
-                                    value={this.state.description} onChange={this.onChangeDescription}
+                                    value={ this.state.description }
+                                    onChange={ this.onChangeDescription }
                                 />
                                 <i class="fas fa-align-justify"></i>
                             </div>

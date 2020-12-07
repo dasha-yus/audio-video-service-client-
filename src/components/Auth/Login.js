@@ -1,6 +1,5 @@
-import {Link} from 'react-router-dom'
 import React, {useContext, useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import UserContext from '../../context/UserContext'
 import ErrorNotice from '../errors/ErrorNotice'
@@ -15,19 +14,24 @@ export default function Login() {
     password: ''
   })
 
-  const {setUserData} = useContext(UserContext)
+  const { setUserData } = useContext(UserContext)
   const history = useHistory()
-
   const submit = async (e) => {
     e.preventDefault()
 
     try {
-      const loginRes = await axios.post('http://localhost:5000/users/login', {...form})
+      const loginRes = await axios.post('http://localhost:5000/users/login', { ...form })
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user
       })
-      
+
+      localStorage.setItem('userId', loginRes.data.user.id)
+      localStorage.setItem('username', loginRes.data.user.name)
+      localStorage.setItem('userRole', loginRes.data.user.role)
+      localStorage.setItem('isAuth', true)
+      localStorage.setItem('saved', new Date().getTime())
+
       if (loginRes.data.user.role === 'admin') {
         history.push("/admin")
       } else {
@@ -62,8 +66,8 @@ export default function Login() {
                         placeholder="Email"
                         type="email"
                         name="email"
-                        value={form.email}
-                        onChange={changeHandler}
+                        value={ form.email }
+                        onChange={ changeHandler }
                       />
                       <i class="fas fa-at"></i>
                   </div>
@@ -72,8 +76,8 @@ export default function Login() {
                         placeholder="Password"
                         type="password"
                         name="password"
-                        value={form.password}
-                        onChange={changeHandler}
+                        value={ form.password }
+                        onChange={ changeHandler }
                       />
                       <i className='fas fa-lock'></i>
                   </div>

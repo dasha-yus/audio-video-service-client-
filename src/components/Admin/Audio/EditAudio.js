@@ -7,12 +7,12 @@ export default class EditAudio extends Component {
     constructor(props) {
         super(props)
     
-        this.onChangeSong = this.onChangeSong.bind(this);
-        this.onChangeSinger = this.onChangeSinger.bind(this);
-        this.onChangeImage = this.onChangeImage.bind(this);
-        this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeMP3 = this.onChangeMP3.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeSong = this.onChangeSong.bind(this)
+        this.onChangeSinger = this.onChangeSinger.bind(this)
+        this.onChangeImage = this.onChangeImage.bind(this)
+        this.onChangeDescription = this.onChangeDescription.bind(this)
+        this.onChangeMP3 = this.onChangeMP3.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
             albom: '',
@@ -37,7 +37,7 @@ export default class EditAudio extends Component {
             });
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error)
         })
     }
 
@@ -87,13 +87,13 @@ export default class EditAudio extends Component {
         return (
             <div className='align'>
                 <div className='card'>
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={ this.onSubmit }>
                         <div className='inputs'>
                         <div className='input'>
                             <input
                                 type="text"
                                 name="albom"
-                                value={this.state.albom}
+                                value={ this.state.albom }
                                 disabled
                             />
                             <i class="fas fa-music"></i>
@@ -102,8 +102,8 @@ export default class EditAudio extends Component {
                             <input
                                 type="text"
                                 name="song"
-                                value={this.state.song}
-                                onChange={this.onChangeSong}
+                                value={ this.state.song }
+                                onChange={ this.onChangeSong }
                             />
                             <i class="fas fa-music"></i>
                         </div>
@@ -111,8 +111,8 @@ export default class EditAudio extends Component {
                             <input
                                 type="text"
                                 name="singer"
-                                value={this.state.singer}
-                                onChange={this.onChangeSinger}
+                                value={ this.state.singer }
+                                onChange={ this.onChangeSinger }
                             />
                             <i class="fas fa-user-alt"></i>
                         </div>
@@ -121,8 +121,8 @@ export default class EditAudio extends Component {
                                 placeholder="Image"
                                 type="text"
                                 name="image"
-                                value={this.state.image}
-                                onChange={this.onChangeImage}
+                                value={ this.state.image }
+                                onChange={ this.onChangeImage }
                             />
                             <i class="fas fa-image"></i>
                         </div>
@@ -131,8 +131,8 @@ export default class EditAudio extends Component {
                                 placeholder="Description"
                                 type="text"
                                 name="description"
-                                value={this.state.description}
-                                onChange={this.onChangeDescription}
+                                value={ this.state.description }
+                                onChange={ this.onChangeDescription }
                             />
                             <i class="fas fa-align-justify"></i>
                         </div>
@@ -141,8 +141,8 @@ export default class EditAudio extends Component {
                                 placeholder="mp3"
                                 type="text"
                                 name="mp3"
-                                value={this.state.mp3}
-                                onChange={this.onChangeMP3}
+                                value={ this.state.mp3 }
+                                onChange={ this.onChangeMP3 }
                             />
                             <i class="fas fa-file-audio"></i>
                         </div>
