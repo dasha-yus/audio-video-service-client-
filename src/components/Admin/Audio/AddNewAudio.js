@@ -1,5 +1,6 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import UserContext from '../../../context/UserContext'
 import { useHistory } from 'react-router-dom'
 
 import '../Admin.css'
@@ -15,9 +16,15 @@ export default function AddNewAudio() {
     })
     const history = useHistory()
     const [topicsList, setTopicsList] = useState([])
+    const { userData } = useContext(UserContext)
 
     const addAudio = () => {
-        axios.post('http://localhost:5000/admin/audio/new', { ...form })
+        axios.post('http://localhost:5000/admin/audio/new', { ...form },
+            {
+                headers: {
+                    'Authorization': `${userData.user.role}` 
+                }
+            })
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
         history.push('/admin/audio')

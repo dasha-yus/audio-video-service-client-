@@ -19,7 +19,12 @@ const Playlists = () => {
     const removeVideoFromPlaylist = (videoId, title, image) => {
         const conf = window.confirm(`Are you sure you want to delete ${title} from your playlist?`)
         if (conf) {
-            axios.put(`http://localhost:5000/user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image })
+            axios.put(`http://localhost:5000/user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image },
+                {
+                    headers: {
+                    'Authorization': `${userData.user.role}` 
+                    }
+                })
                 .then(res => setUser(res.data))
                 .catch(error => console.log(error))
         }
@@ -28,7 +33,12 @@ const Playlists = () => {
     const removeAudioFromPlaylist = (audioId, song, singer, image) => {
         const conf = window.confirm(`Are you sure you want to delete ${song} from your playlist?`)
         if (conf) {
-            axios.put(`http://localhost:5000/user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image })
+            axios.put(`http://localhost:5000/user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image },
+                {
+                    headers: {
+                    'Authorization': `${userData.user.role}` 
+                    }
+                })
                 .then(res => setUser(res.data))
                 .catch(error => console.log(error))
         }

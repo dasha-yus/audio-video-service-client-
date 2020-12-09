@@ -15,20 +15,35 @@ const Audio = () => {
     }, [id])
 
     const likeAudio = (id, numberOfViews) => {
-        axios.put(`http://localhost:5000/audio/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews })
+        axios.put(`http://localhost:5000/audio/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews },
+        {
+            headers: {
+              'Authorization': `${userData.user.role}` 
+            }
+        })
             .then(res => setPost(res.data))
             .catch(error => console.log(error)
         )
     }
 
     const unlikeAudio = (id, numberOfViews) => {
-        axios.put(`http://localhost:5000/audio/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews })
+        axios.put(`http://localhost:5000/audio/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews },
+        {
+            headers: {
+              'Authorization': `${userData.user.role}` 
+            }
+        })
             .then(res => setPost(res.data))
             .catch(error => console.log(error))
     }
 
     const makeComment = (text, id, userId) => {
-        axios.put(`http://localhost:5000/audio/${id}/comment`, { text: text, user: userData.user.name, userId: userId })
+        axios.put(`http://localhost:5000/audio/${id}/comment`, { text: text, user: userData.user.name, userId: userId },
+        {
+            headers: {
+              'Authorization': `${userData.user.role}` 
+            }
+        })
             .then(res => {
                 setPost(res.data)
                 document.getElementById("comment-form").reset()
@@ -37,7 +52,12 @@ const Audio = () => {
     }
 
     const addToPlaylist = (audioId, song, singer, image, userId) => {
-        axios.put(`http://localhost:5000/audio/add/${userId}`, { audioId: audioId, song: song, singer: singer, image: image })
+        axios.put(`http://localhost:5000/audio/add/${userId}`, { audioId: audioId, song: song, singer: singer, image: image },
+            {
+                headers: {
+                'Authorization': `${userData.user.role}` 
+                }
+            })
             .then(alert('The audio was successfully added to the playlist'))
             .then(res => console.log(res.data))
             .catch(error => console.log(error))

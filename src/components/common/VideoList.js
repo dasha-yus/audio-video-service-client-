@@ -29,7 +29,12 @@ const VideoList = ({ videos, search, link }) => {
   const deleteCategory = topic => {
     const conf = window.confirm(`Are you sure you want to delete category ${ topic }?`)
     if (conf) {
-      axios.put('http://localhost:5000/video/delete-category', { topic: topic })
+      axios.put('http://localhost:5000/video/delete-category', { topic: topic },
+        {
+          headers: {
+          'Authorization': `${userData.user.role}` 
+          }
+        })
         .then(res => console.log(res.data))
         .catch(error => console.log(error))
     }

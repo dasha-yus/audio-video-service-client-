@@ -73,7 +73,12 @@ export default class EditAudio extends Component {
             mp3: this.state.mp3,
         };
 
-        axios.put('http://localhost:5000/admin/audio/edit/' + this.props.match.params.id, audioObject)
+        axios.put('http://localhost:5000/admin/audio/edit/' + this.props.match.params.id, audioObject,
+            {
+                headers: {
+                    'Authorization': `admin` 
+                }
+            })
             .then((res) => {
                 console.log(res.data)
             }).catch((error) => {

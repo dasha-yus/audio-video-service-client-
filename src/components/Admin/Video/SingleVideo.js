@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams, useHistory, Link } from "react-router-dom"
 import axios from 'axios'
+import UserContext from '../../../context/UserContext'
 import '../Admin.css'
 
 const SingleVideo = () => {
     const { id } = useParams()
     const [post, setPost] = useState()
     const history = useHistory()
+    const { userData } = useContext(UserContext)
 
     useEffect(() => {
         axios.get(`http://localhost:5000/video/${id}`).then(result => {
@@ -17,7 +19,12 @@ const SingleVideo = () => {
     const deleteVideo = (id) => {
         const conf = window.confirm(`Are you sure you want to delete this video?`)
         if (conf) {
-            axios.delete(`http://localhost:5000/admin/delete/${id}`)
+            axios.delete(`http://localhost:5000/admin/delete/${id}`,
+                {
+                    headers: {
+                        'Authorization': `${userData.user.role}` 
+                    }
+                })
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
             history.push('/admin')

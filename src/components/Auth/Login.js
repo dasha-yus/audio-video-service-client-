@@ -20,17 +20,15 @@ export default function Login() {
     e.preventDefault()
 
     try {
-      const loginRes = await axios.post('http://localhost:5000/users/login', { ...form })
+      const loginRes = await axios.post('http://localhost:5000/users/login', { ...form } )
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user
       })
-
       localStorage.setItem('userId', loginRes.data.user.id)
       localStorage.setItem('username', loginRes.data.user.name)
       localStorage.setItem('userRole', loginRes.data.user.role)
       localStorage.setItem('isAuth', true)
-      localStorage.setItem('saved', new Date().getTime())
 
       if (loginRes.data.user.role === 'admin') {
         history.push("/admin")

@@ -19,20 +19,35 @@ const Video = () => {
     }, [id])
 
     const likeVideo = (id, numberOfViews) => {
-        axios.put(`http://localhost:5000/video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews })
+        axios.put(`http://localhost:5000/video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews },
+            {
+                headers: {
+                'Authorization': `${userData.user.role}` 
+                }
+            })
             .then(res => setPost(res.data))
             .catch(error => console.log(error)
         )
     }
 
     const unlikeVideo = (id, numberOfViews) => {
-        axios.put(`http://localhost:5000/video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews })
+        axios.put(`http://localhost:5000/video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews },
+            {
+                headers: {
+                'Authorization': `${userData.user.role}` 
+                }
+            })
             .then(res => setPost(res.data))
             .catch(error => console.log(error))
     }
 
     const makeComment = (text, id, userId) => {
-        axios.put(`http://localhost:5000/video/${id}/comment`, { text: text, user: userData.user.name, userId: userId })
+        axios.put(`http://localhost:5000/video/${id}/comment`, { text: text, user: userData.user.name, userId: userId },
+            {
+                headers: {
+                'Authorization': `${userData.user.role}` 
+                }
+            })
             .then(res => {
                 setPost(res.data)
                 document.getElementById("comment-form").reset()
@@ -41,7 +56,12 @@ const Video = () => {
     }
 
     const addToPlaylist = (videoId, title, image, userId) => {
-        axios.put(`http://localhost:5000/video/add/${ userId }`, { videoId: videoId, title: title, image: image })
+        axios.put(`http://localhost:5000/video/add/${ userId }`, { videoId: videoId, title: title, image: image },
+            {
+                headers: {
+                'Authorization': `${userData.user.role}` 
+                }
+            })
             .then(alert('The video was successfully added to the playlist'))
             .then(res => console.log(res.data))
             .catch(error => console.log(error))

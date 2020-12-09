@@ -1,6 +1,7 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import UserContext from '../../../context/UserContext'
 
 import '../Admin.css'
 
@@ -14,6 +15,7 @@ export default function AddNewVideo() {
     })
     const history = useHistory()
     const [topicsList, setTopicsList] = useState([])
+    const { userData } = useContext(UserContext)
 
     useEffect(() => {
         axios.get("http://localhost:5000/video").then(res => {
@@ -26,7 +28,12 @@ export default function AddNewVideo() {
     })
 
     const addVideo = () => {
-        axios.post('http://localhost:5000/admin/new', { ...form })
+        axios.post('http://localhost:5000/admin/new', { ...form },
+            {
+                headers: {
+                    'Authorization': `${userData.user.role}` 
+                }
+            })
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
         history.push('/admin')

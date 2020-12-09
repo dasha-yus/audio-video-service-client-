@@ -82,7 +82,12 @@ export default class EditVideo extends Component {
             description: this.state.description
         };
 
-        axios.put('http://localhost:5000/admin/edit/' + this.props.match.params.id, videoObject)
+        axios.put('http://localhost:5000/admin/edit/' + this.props.match.params.id, videoObject,
+            {
+                headers: {
+                    'Authorization': `admin` 
+                }
+            })
             .then((res) => {
                 console.log(res.data)
             }).catch((error) => {

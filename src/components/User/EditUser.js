@@ -20,13 +20,18 @@ export default class EditUser extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/admin/users/' + this.props.match.params.id)
-          .then(res => {
-            this.setState({
-                name: res.data.name,
-                email: res.data.email,
-                role: res.data.role
-            });
+        axios.get('http://localhost:5000/admin/users/' + this.props.match.params.id,
+            {
+                headers: {
+                'Authorization': `admin` 
+                }
+            })
+            .then(res => {
+                this.setState({
+                    name: res.data.name,
+                    email: res.data.email,
+                    role: res.data.role
+            })
         })
         .catch((error) => {
             console.log(error)
@@ -54,7 +59,12 @@ export default class EditUser extends Component {
             role: this.state.role
         };
 
-        axios.put('http://localhost:5000/admin/users/edit/' + this.props.match.params.id, userObject)
+        axios.put('http://localhost:5000/admin/users/edit/' + this.props.match.params.id, userObject,
+            {
+                headers: {
+                'Authorization': `admin` 
+                }
+            })
             .then(res => console.log(res.data))
             .catch(error => console.log(error))
             

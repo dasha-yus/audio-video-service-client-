@@ -10,15 +10,27 @@ export default class UsersList extends Component {
   };
 
   componentDidMount () {
-    axios.get("http://localhost:5000/admin/users").then(res => {
-      this.setState({ users: res.data })
-    })
+    axios.get("http://localhost:5000/admin/users",
+      {
+        headers: {
+        'Authorization': `admin` 
+        }
+      })
+      .then(res => {
+        this.setState({ users: res.data })
+      })
   }
 
   deleteUser = (id) => {
     const conf = window.confirm(`Are you sure you want to delete the user?`)
     if (conf) {
-      axios.delete(`http://localhost:5000/admin/users/delete/${id}`).then(res => {
+      axios.delete(`http://localhost:5000/admin/users/delete/${id}`,
+      {
+        headers: {
+        'Authorization': `admin` 
+        }
+      })
+      .then(res => {
         const users = this.state.users.filter(user => user._id !== id)
         this.setState({ users })
       })

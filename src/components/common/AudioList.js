@@ -29,7 +29,12 @@ const AudioList = ({ audios, search, link }) => {
   const deleteCategory = albom => {
     const conf = window.confirm(`Are you sure you want to delete the albom ${ albom }?`)
     if (conf) {
-      axios.put('http://localhost:5000/audio/delete-category', { albom: albom })
+      axios.put('http://localhost:5000/audio/delete-category', { albom: albom },
+        {
+          headers: {
+          'Authorization': `${userData.user.role}` 
+          }
+        })
         .then(res => console.log(res.data))
         .catch(error => console.log(error))
     }
