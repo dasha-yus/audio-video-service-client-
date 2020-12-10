@@ -22,7 +22,7 @@ const Video = () => {
         axios.put(`http://localhost:5000/video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews },
             {
                 headers: {
-                'Authorization': `${userData.user.role}` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(res => setPost(res.data))
@@ -34,7 +34,7 @@ const Video = () => {
         axios.put(`http://localhost:5000/video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews },
             {
                 headers: {
-                'Authorization': `${userData.user.role}` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(res => setPost(res.data))
@@ -45,7 +45,7 @@ const Video = () => {
         axios.put(`http://localhost:5000/video/${id}/comment`, { text: text, user: userData.user.name, userId: userId },
             {
                 headers: {
-                'Authorization': `${userData.user.role}` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(res => {
@@ -59,7 +59,7 @@ const Video = () => {
         axios.put(`http://localhost:5000/video/add/${ userId }`, { videoId: videoId, title: title, image: image },
             {
                 headers: {
-                'Authorization': `${userData.user.role}` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(alert('The video was successfully added to the playlist'))

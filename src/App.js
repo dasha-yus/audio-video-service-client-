@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import {BrowserRouter as Router, Switch, Route, useHistory} from "react-router-dom"
 import axios from 'axios'
 
 import UserContext from './context/UserContext'
@@ -34,6 +34,13 @@ function App() {
     token: undefined,
     user: undefined
   })
+  const history = useHistory()
+
+  const isExpired = () => {
+    const hours = 1
+    let expiration = localStorage.getItem('expiration')
+    return new Date().getTime() - expiration > hours * 60 * 60 * 1000
+  }
 
   useEffect(() => {
     const ckeckLoggedIn = async () => {
@@ -61,6 +68,15 @@ function App() {
 
     }
     ckeckLoggedIn()
+    if (!isExpired()){
+      localStorage.removeItem('userId')
+      localStorage.removeItem('username')
+      localStorage.removeItem('userRole')
+      localStorage.setItem('isAuth', false)
+      localStorage.removeItem('x-auth-token')
+      localStorage.removeItem('expiration')
+      history.push('/login')
+    }
   }, [])
 
   if (userData.user) {

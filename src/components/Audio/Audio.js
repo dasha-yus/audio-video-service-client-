@@ -16,11 +16,11 @@ const Audio = () => {
 
     const likeAudio = (id, numberOfViews) => {
         axios.put(`http://localhost:5000/audio/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews },
-        {
-            headers: {
-              'Authorization': `${userData.user.role}` 
-            }
-        })
+            {
+                headers: {
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
+                }
+            })
             .then(res => setPost(res.data))
             .catch(error => console.log(error)
         )
@@ -28,22 +28,22 @@ const Audio = () => {
 
     const unlikeAudio = (id, numberOfViews) => {
         axios.put(`http://localhost:5000/audio/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews },
-        {
-            headers: {
-              'Authorization': `${userData.user.role}` 
-            }
-        })
+            {
+                headers: {
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
+                }
+            })
             .then(res => setPost(res.data))
             .catch(error => console.log(error))
     }
 
     const makeComment = (text, id, userId) => {
         axios.put(`http://localhost:5000/audio/${id}/comment`, { text: text, user: userData.user.name, userId: userId },
-        {
-            headers: {
-              'Authorization': `${userData.user.role}` 
-            }
-        })
+            {
+                headers: {
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
+                }
+            })
             .then(res => {
                 setPost(res.data)
                 document.getElementById("comment-form").reset()
@@ -55,7 +55,7 @@ const Audio = () => {
         axios.put(`http://localhost:5000/audio/add/${userId}`, { audioId: audioId, song: song, singer: singer, image: image },
             {
                 headers: {
-                'Authorization': `${userData.user.role}` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(alert('The audio was successfully added to the playlist'))

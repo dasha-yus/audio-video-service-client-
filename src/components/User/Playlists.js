@@ -11,9 +11,14 @@ const Playlists = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/user/${id}`).then(result => {
-            setUser(result.data)
-        })
+        axios.get(`http://localhost:5000/user/${id}`,
+            {
+                headers: {
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
+                }
+            })
+            .then(result => setUser(result.data)
+        )
     }, [id])
 
     const removeVideoFromPlaylist = (videoId, title, image) => {
@@ -22,7 +27,7 @@ const Playlists = () => {
             axios.put(`http://localhost:5000/user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image },
                 {
                     headers: {
-                    'Authorization': `${userData.user.role}` 
+                        'x-auth-token': localStorage.getItem('x-auth-token') 
                     }
                 })
                 .then(res => setUser(res.data))
@@ -36,7 +41,7 @@ const Playlists = () => {
             axios.put(`http://localhost:5000/user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image },
                 {
                     headers: {
-                    'Authorization': `${userData.user.role}` 
+                        'x-auth-token': localStorage.getItem('x-auth-token') 
                     }
                 })
                 .then(res => setUser(res.data))

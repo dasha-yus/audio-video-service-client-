@@ -28,7 +28,9 @@ export default function Login() {
       localStorage.setItem('userId', loginRes.data.user.id)
       localStorage.setItem('username', loginRes.data.user.name)
       localStorage.setItem('userRole', loginRes.data.user.role)
+      localStorage.setItem('x-auth-token', loginRes.data.token)
       localStorage.setItem('isAuth', true)
+      localStorage.setItem('expiration', new Date().getTime)
 
       if (loginRes.data.user.role === 'admin') {
         history.push("/admin")

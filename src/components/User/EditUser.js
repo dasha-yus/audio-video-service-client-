@@ -23,7 +23,7 @@ export default class EditUser extends Component {
         axios.get('http://localhost:5000/admin/users/' + this.props.match.params.id,
             {
                 headers: {
-                'Authorization': `admin` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(res => {
@@ -62,7 +62,7 @@ export default class EditUser extends Component {
         axios.put('http://localhost:5000/admin/users/edit/' + this.props.match.params.id, userObject,
             {
                 headers: {
-                'Authorization': `admin` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(res => console.log(res.data))

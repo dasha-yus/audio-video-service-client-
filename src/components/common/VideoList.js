@@ -32,8 +32,8 @@ const VideoList = ({ videos, search, link }) => {
       axios.put('http://localhost:5000/video/delete-category', { topic: topic },
         {
           headers: {
-          'Authorization': `${userData.user.role}` 
-          }
+            'x-auth-token': localStorage.getItem('x-auth-token') 
+        }
         })
         .then(res => console.log(res.data))
         .catch(error => console.log(error))

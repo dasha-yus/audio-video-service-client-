@@ -31,7 +31,7 @@ export default function AddNewVideo() {
         axios.post('http://localhost:5000/admin/new', { ...form },
             {
                 headers: {
-                    'Authorization': `${userData.user.role}` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then(res => console.log(res.data))

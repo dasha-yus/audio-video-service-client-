@@ -85,7 +85,7 @@ export default class EditVideo extends Component {
         axios.put('http://localhost:5000/admin/edit/' + this.props.match.params.id, videoObject,
             {
                 headers: {
-                    'Authorization': `admin` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then((res) => {

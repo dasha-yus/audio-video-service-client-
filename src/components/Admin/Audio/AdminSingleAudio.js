@@ -21,7 +21,7 @@ const AdminSingleAudio = () => {
             axios.delete(`http://localhost:5000/admin/audio/delete/${id}`,
                 {
                     headers: {
-                        'Authorization': `${userData.user.role}` 
+                        'x-auth-token': localStorage.getItem('x-auth-token') 
                     }
                 })
                 .then(res => console.log(res))

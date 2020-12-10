@@ -76,7 +76,7 @@ export default class EditAudio extends Component {
         axios.put('http://localhost:5000/admin/audio/edit/' + this.props.match.params.id, audioObject,
             {
                 headers: {
-                    'Authorization': `admin` 
+                    'x-auth-token': localStorage.getItem('x-auth-token') 
                 }
             })
             .then((res) => {

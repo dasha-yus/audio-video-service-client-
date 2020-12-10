@@ -13,8 +13,8 @@ export default class UsersList extends Component {
     axios.get("http://localhost:5000/admin/users",
       {
         headers: {
-        'Authorization': `admin` 
-        }
+          'x-auth-token': localStorage.getItem('x-auth-token') 
+      }
       })
       .then(res => {
         this.setState({ users: res.data })
@@ -27,8 +27,8 @@ export default class UsersList extends Component {
       axios.delete(`http://localhost:5000/admin/users/delete/${id}`,
       {
         headers: {
-        'Authorization': `admin` 
-        }
+          'x-auth-token': localStorage.getItem('x-auth-token') 
+      }
       })
       .then(res => {
         const users = this.state.users.filter(user => user._id !== id)
