@@ -1,7 +1,8 @@
-import axios from 'axios'
-import React, { useEffect, useState, useContext } from 'react'
-import UserContext from '../../../context/UserContext'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { postItems } from '../../../service/CRUDService'
+import axios from 'axios'
+import { BASE_URL } from '../../../config'
 
 import '../Admin.css'
 
@@ -16,22 +17,14 @@ export default function AddNewAudio() {
     })
     const history = useHistory()
     const [topicsList, setTopicsList] = useState([])
-    const { userData } = useContext(UserContext)
 
     const addAudio = () => {
-        axios.post('http://localhost:5000/admin/audio/new', { ...form },
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
+        postItems('admin/audio/new', { ...form })
         history.push('/admin/audio')
     }
 
     useEffect(() => {
-        axios.get("http://localhost:5000/audio").then((res) => {
+        axios.get(`${BASE_URL}audio`).then((res) => {
             let set = new Set()
             res.data.map(audio => {
                 set.add(audio.albom)

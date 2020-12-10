@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React, { Component } from 'react'
-
+import { putItems } from '../../../service/CRUDService'
 import '../Admin.css'
+import { BASE_URL } from '../../../config'
 
 export default class EditAudio extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class EditAudio extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/audio/' + this.props.match.params.id)
+        axios.get(`${BASE_URL}audio/` + this.props.match.params.id)
           .then(res => {
             this.setState({
                 albom: res.data.albom,
@@ -71,19 +72,9 @@ export default class EditAudio extends Component {
             image: this.state.image,
             description: this.state.description,
             mp3: this.state.mp3,
-        };
-
-        axios.put('http://localhost:5000/admin/audio/edit/' + this.props.match.params.id, audioObject,
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then((res) => {
-                console.log(res.data)
-            }).catch((error) => {
-                console.log(error)
-            })
+        }
+        
+        putItems('admin/audio/edit/' + this.props.match.params.id, audioObject, null)
             
         this.props.history.push('/admin/audio')
     }

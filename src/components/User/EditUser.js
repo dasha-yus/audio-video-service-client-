@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React, {Component} from 'react'
-
+import { putItems } from '../../service/CRUDService'
 import './User.css'
+import { BASE_URL } from '../../config'
 
 export default class EditUser extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class EditUser extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/admin/users/' + this.props.match.params.id,
+        axios.get(`${BASE_URL}admin/users/` + this.props.match.params.id,
             {
                 headers: {
                     'x-auth-token': localStorage.getItem('x-auth-token') 
@@ -59,15 +60,8 @@ export default class EditUser extends Component {
             role: this.state.role
         };
 
-        axios.put('http://localhost:5000/admin/users/edit/' + this.props.match.params.id, userObject,
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(res => console.log(res.data))
-            .catch(error => console.log(error))
-            
+        putItems('admin/users/edit/' + this.props.match.params.id, userObject, null)
+          
         this.props.history.push('/admin/users')
     }
 

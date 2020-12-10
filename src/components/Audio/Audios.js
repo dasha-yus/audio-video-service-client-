@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import AudioList from '../common/AudioList'
 import './AudioList.css'
+import { BASE_URL } from '../../config'
 
 export default class Audios extends Component {
   state = {
@@ -11,7 +12,7 @@ export default class Audios extends Component {
   };
 
   componentDidMount () {
-    axios.get("http://localhost:5000/audio").then(res => {
+    axios.get(`${BASE_URL}audio`).then(res => {
       this.setState({ audios: res.data })
     })
   }

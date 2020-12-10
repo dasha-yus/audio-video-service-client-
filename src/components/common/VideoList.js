@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../../context/UserContext'
 import axios from 'axios'
+import { BASE_URL } from '../../config'
 
 const VideoList = ({ videos, search, link }) => {
   let views = 0
@@ -29,7 +30,7 @@ const VideoList = ({ videos, search, link }) => {
   const deleteCategory = topic => {
     const conf = window.confirm(`Are you sure you want to delete category ${ topic }?`)
     if (conf) {
-      axios.put('http://localhost:5000/video/delete-category', { topic: topic },
+      axios.put(`${BASE_URL}video/delete-category`, { topic: topic },
         {
           headers: {
             'x-auth-token': localStorage.getItem('x-auth-token') 

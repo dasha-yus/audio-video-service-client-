@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../../context/UserContext'
 import axios from 'axios'
+import { BASE_URL } from '../../config'
 
 const AudioList = ({ audios, search, link }) => {
   let views = 0
@@ -29,7 +30,7 @@ const AudioList = ({ audios, search, link }) => {
   const deleteCategory = albom => {
     const conf = window.confirm(`Are you sure you want to delete the albom ${ albom }?`)
     if (conf) {
-      axios.put('http://localhost:5000/audio/delete-category', { albom: albom },
+      axios.put(`${BASE_URL}audio/delete-category`, { albom: albom },
         {
           headers: {
             'x-auth-token': localStorage.getItem('x-auth-token') 

@@ -1,32 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useHistory, Link } from "react-router-dom"
-import axios from 'axios'
-import UserContext from '../../../context/UserContext'
+import { getItems, deleteItems } from '../../../service/CRUDService'
 import '../Admin.css'
 
 const SingleVideo = () => {
     const { id } = useParams()
     const [post, setPost] = useState()
     const history = useHistory()
-    const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/video/${id}`).then(result => {
-            setPost(result.data)
-        })
+        getItems(`video/${id}`, setPost, false)
     }, [id])
 
     const deleteVideo = (id) => {
         const conf = window.confirm(`Are you sure you want to delete this video?`)
         if (conf) {
-            axios.delete(`http://localhost:5000/admin/delete/${id}`,
-                {
-                    headers: {
-                        'x-auth-token': localStorage.getItem('x-auth-token') 
-                    }
-                })
-                .then(res => console.log(res))
-                .catch(err => console.log(err))
+            deleteItems(`admin/delete/${id}`)
             history.push('/admin')
         }
     }

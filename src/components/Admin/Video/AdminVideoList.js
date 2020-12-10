@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import VideoList from '../../common/VideoList'
 import '../Admin.css'
+import { BASE_URL } from '../../../config'
 
 export default class AdminVideoList extends Component {
   state = {
@@ -12,7 +13,7 @@ export default class AdminVideoList extends Component {
   };
 
   componentDidMount () {
-    axios.get("http://localhost:5000/video").then(res => {
+    axios.get(`${BASE_URL}video`).then(res => {
       this.setState({ videos: res.data })
     })
   }

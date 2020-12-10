@@ -1,36 +1,31 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { deleteItems } from '../../service/CRUDService'
+import { BASE_URL } from '../../config'
 import './User.css'
 
 export default class UsersList extends Component {
   state = {
     users: [],
-    selectedPostId: null,
-  };
+  }
 
   componentDidMount () {
-    axios.get("http://localhost:5000/admin/users",
+    axios.get(`${BASE_URL}admin/users`,
       {
         headers: {
           'x-auth-token': localStorage.getItem('x-auth-token') 
       }
       })
       .then(res => {
-        this.setState({ users: res.data })
+        this.setState({ 'users': res.data })
       })
   }
 
   deleteUser = (id) => {
     const conf = window.confirm(`Are you sure you want to delete the user?`)
     if (conf) {
-      axios.delete(`http://localhost:5000/admin/users/delete/${id}`,
-      {
-        headers: {
-          'x-auth-token': localStorage.getItem('x-auth-token') 
-      }
-      })
-      .then(res => {
+      deleteItems(`admin/users/delete/${id}`).then(res => {
         const users = this.state.users.filter(user => user._id !== id)
         this.setState({ users })
       })

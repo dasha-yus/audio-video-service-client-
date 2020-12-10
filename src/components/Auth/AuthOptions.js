@@ -18,7 +18,6 @@ export default function AuthOptions() {
         localStorage.removeItem('userRole')
         localStorage.setItem('isAuth', false)
         localStorage.removeItem('x-auth-token')
-        localStorage.removeItem('expiration')
         history.push('/')
     }
 

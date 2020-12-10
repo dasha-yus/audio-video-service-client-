@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import UserContext from '../../context/UserContext'
 import ErrorNotice from '../errors/ErrorNotice'
+import { BASE_URL } from '../../config'
 
 import './Auth.css'
 
@@ -20,7 +21,7 @@ export default function Login() {
     e.preventDefault()
 
     try {
-      const loginRes = await axios.post('http://localhost:5000/users/login', { ...form } )
+      const loginRes = await axios.post(`${BASE_URL}users/login`, { ...form } )
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user
@@ -30,7 +31,6 @@ export default function Login() {
       localStorage.setItem('userRole', loginRes.data.user.role)
       localStorage.setItem('x-auth-token', loginRes.data.token)
       localStorage.setItem('isAuth', true)
-      localStorage.setItem('expiration', new Date().getTime)
 
       if (loginRes.data.user.role === 'admin') {
         history.push("/admin")

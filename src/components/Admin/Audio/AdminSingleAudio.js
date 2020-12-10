@@ -1,31 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useHistory, Link } from "react-router-dom"
-import UserContext from '../../../context/UserContext'
-import axios from 'axios'
+import { getItems, deleteItems } from '../../../service/CRUDService'
 
 const AdminSingleAudio = () => {
     const { id } = useParams()
     const [post, setPost] = useState()
     const history = useHistory()
-    const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/audio/${id}`).then(result => {
-            setPost(result.data)
-        })
+        getItems(`audio/${id}`, setPost, false)
     }, [id])
 
     const deleteAudio = (id) => {
         const conf = window.confirm(`Are you sure you want to delete this audio?`)
         if (conf) {
-            axios.delete(`http://localhost:5000/admin/audio/delete/${id}`,
-                {
-                    headers: {
-                        'x-auth-token': localStorage.getItem('x-auth-token') 
-                    }
-                })
-                .then(res => console.log(res))
-                .catch(err => console.log(err))
+            deleteItems(`admin/audio/delete/${id}`)
             history.push('/admin/audio')
         }
     }

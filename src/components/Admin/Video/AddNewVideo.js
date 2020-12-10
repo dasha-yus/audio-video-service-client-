@@ -1,7 +1,8 @@
 import axios from 'axios'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import UserContext from '../../../context/UserContext'
+import { postItems } from '../../../service/CRUDService'
+import { BASE_URL } from '../../../config'
 
 import '../Admin.css'
 
@@ -15,10 +16,9 @@ export default function AddNewVideo() {
     })
     const history = useHistory()
     const [topicsList, setTopicsList] = useState([])
-    const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        axios.get("http://localhost:5000/video").then(res => {
+        axios.get(`${BASE_URL}video`).then(res => {
             let set = new Set()
             res.data.map(video => {
                 set.add(video.topic)
@@ -28,14 +28,7 @@ export default function AddNewVideo() {
     })
 
     const addVideo = () => {
-        axios.post('http://localhost:5000/admin/new', { ...form },
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(res => console.log(res.data))
-            .catch(err => console.log(err))
+        postItems('admin/new', { ...form })
         history.push('/admin')
     }
     

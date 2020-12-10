@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React, { Component } from 'react'
-
+import { putItems } from '../../../service/CRUDService'
 import '../Admin.css'
+import { BASE_URL } from '../../../config'
 
 export default class EditVideo extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export default class EditVideo extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/video/' + this.props.match.params.id)
+        axios.get(`${BASE_URL}video/` + this.props.match.params.id)
           .then(res => {
             this.setState({
                 topic: res.data.topic,
@@ -35,7 +36,7 @@ export default class EditVideo extends Component {
                 description: res.data.description
             });
         })
-        .then(axios.get("http://localhost:5000/video").then(res => {
+        .then(axios.get(`${BASE_URL}video`).then(res => {
             this.setState({ videos: res.data })
         }))
         .catch((error) => {
@@ -82,17 +83,7 @@ export default class EditVideo extends Component {
             description: this.state.description
         };
 
-        axios.put('http://localhost:5000/admin/edit/' + this.props.match.params.id, videoObject,
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then((res) => {
-                console.log(res.data)
-            }).catch((error) => {
-                console.log(error)
-            })
+        putItems('admin/edit/' + this.props.match.params.id, videoObject, null)
             
         this.props.history.push('/admin')
     }

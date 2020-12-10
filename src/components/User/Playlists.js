@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
 import { Link, useParams } from "react-router-dom"
 import UserContext from '../../context/UserContext'
-
+import { getItems, putItems } from '../../service/CRUDService'
 
 const Playlists = () => {
     const { id } = useParams()
@@ -11,41 +10,20 @@ const Playlists = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/user/${id}`,
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(result => setUser(result.data)
-        )
+        getItems(`user/${id}`, setUser, true)
     }, [id])
 
     const removeVideoFromPlaylist = (videoId, title, image) => {
         const conf = window.confirm(`Are you sure you want to delete ${title} from your playlist?`)
         if (conf) {
-            axios.put(`http://localhost:5000/user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image },
-                {
-                    headers: {
-                        'x-auth-token': localStorage.getItem('x-auth-token') 
-                    }
-                })
-                .then(res => setUser(res.data))
-                .catch(error => console.log(error))
+            putItems(`user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image }, setUser)
         }
     }
 
     const removeAudioFromPlaylist = (audioId, song, singer, image) => {
         const conf = window.confirm(`Are you sure you want to delete ${song} from your playlist?`)
         if (conf) {
-            axios.put(`http://localhost:5000/user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image },
-                {
-                    headers: {
-                        'x-auth-token': localStorage.getItem('x-auth-token') 
-                    }
-                })
-                .then(res => setUser(res.data))
-                .catch(error => console.log(error))
+            putItems(`user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image }, setUser)
         }
     }
 

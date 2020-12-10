@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from "react-router-dom"
 import { Link } from 'react-router-dom';
 import UserContext from '../../context/UserContext'
-import axios from 'axios'
+import { getItems, putItems } from '../../service/CRUDService'
 
 import './Video.css'
 
@@ -13,58 +13,25 @@ const Video = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/video/${id}`).then(result => {
-            setPost(result.data);
-        })
+        getItems(`video/${id}`, setPost, false)
     }, [id])
 
     const likeVideo = (id, numberOfViews) => {
-        axios.put(`http://localhost:5000/video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews },
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(res => setPost(res.data))
-            .catch(error => console.log(error)
-        )
+        putItems(`video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews }, setPost)
     }
 
     const unlikeVideo = (id, numberOfViews) => {
-        axios.put(`http://localhost:5000/video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews },
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(res => setPost(res.data))
-            .catch(error => console.log(error))
+        putItems(`video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews }, setPost)
     }
 
     const makeComment = (text, id, userId) => {
-        axios.put(`http://localhost:5000/video/${id}/comment`, { text: text, user: userData.user.name, userId: userId },
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(res => {
-                setPost(res.data)
-                document.getElementById("comment-form").reset()
-            })
-            .catch(error => console.log(error))
+        putItems(`video/${id}/comment`, { text: text, user: userData.user.name, userId: userId }, setPost)
+        document.getElementById("comment-form").reset()
     }
 
     const addToPlaylist = (videoId, title, image, userId) => {
-        axios.put(`http://localhost:5000/video/add/${ userId }`, { videoId: videoId, title: title, image: image },
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
-            .then(alert('The video was successfully added to the playlist'))
-            .then(res => console.log(res.data))
-            .catch(error => console.log(error))
+        putItems(`video/add/${ userId }`, { videoId: videoId, title: title, image: image }, null)
+        alert('The video was successfully added to the playlist')
     }
 
     return (
