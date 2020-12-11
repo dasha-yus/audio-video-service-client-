@@ -1,8 +1,6 @@
-import axios from 'axios'
 import React, { Component } from 'react'
-import { putItems } from '../../../service/CRUDService'
+import { getItems, putItems } from '../../../service/CRUDService'
 import '../Admin.css'
-import { BASE_URL } from '../../../config'
 
 export default class EditAudio extends Component {
     constructor(props) {
@@ -26,8 +24,7 @@ export default class EditAudio extends Component {
     }
 
     componentDidMount() {
-        axios.get(`${BASE_URL}audio/` + this.props.match.params.id)
-          .then(res => {
+        getItems('audio/' + this.props.match.params.id, false).then(res => {
             this.setState({
                 albom: res.data.albom,
                 song: res.data.song,
@@ -37,9 +34,7 @@ export default class EditAudio extends Component {
                 mp3: res.data.mp3
             });
         })
-        .catch((error) => {
-            console.log(error)
-        })
+        .catch(err => console.log(err))
     }
 
     onChangeSong(e) {
@@ -73,8 +68,8 @@ export default class EditAudio extends Component {
             description: this.state.description,
             mp3: this.state.mp3,
         }
-        
-        putItems('admin/audio/edit/' + this.props.match.params.id, audioObject, null)
+
+        putItems('admin/audio/edit/' + this.props.match.params.id, audioObject)
             
         this.props.history.push('/admin/audio')
     }

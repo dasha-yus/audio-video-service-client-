@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { deleteItems } from '../../service/CRUDService'
-import { BASE_URL } from '../../config'
+import { getItems, deleteItems } from '../../service/CRUDService'
 import './User.css'
 
 export default class UsersList extends Component {
@@ -11,15 +9,9 @@ export default class UsersList extends Component {
   }
 
   componentDidMount () {
-    axios.get(`${BASE_URL}admin/users`,
-      {
-        headers: {
-          'x-auth-token': localStorage.getItem('x-auth-token') 
-      }
-      })
-      .then(res => {
-        this.setState({ 'users': res.data })
-      })
+    getItems('admin/users/', true).then(res => {
+      this.setState({ 'users': res.data })
+    })
   }
 
   deleteUser = (id) => {

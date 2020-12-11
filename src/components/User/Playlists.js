@@ -10,20 +10,22 @@ const Playlists = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        getItems(`user/${id}`, setUser, true)
+        getItems(`user/${id}`, true).then(res => setUser(res.data))
     }, [id])
 
     const removeVideoFromPlaylist = (videoId, title, image) => {
         const conf = window.confirm(`Are you sure you want to delete ${title} from your playlist?`)
         if (conf) {
-            putItems(`user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image }, setUser)
+            putItems(`user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image })
+                .then(res => setUser(res.data))
         }
     }
 
     const removeAudioFromPlaylist = (audioId, song, singer, image) => {
         const conf = window.confirm(`Are you sure you want to delete ${song} from your playlist?`)
         if (conf) {
-            putItems(`user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image }, setUser)
+            putItems(`user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image })
+                .then(res => setUser(res.data))
         }
     }
 

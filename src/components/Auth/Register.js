@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom'
-import axios from 'axios'
 import ErrorNotice from '../errors/ErrorNotice'
-import { BASE_URL } from '../../config'
+import { postItems } from '../../service/CRUDService'
 
 import './Auth.css'
 
@@ -23,7 +22,7 @@ export default function Register() {
     
     try {
       const newUser = {...form}
-      await axios.post(`${BASE_URL}users/register`, newUser)
+      await postItems('users/register', newUser, false)
       alert('A new user account was successfully created')
       history.push('/login')
     } catch (err) {

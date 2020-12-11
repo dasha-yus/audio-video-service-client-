@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { postItems } from '../../../service/CRUDService'
-import axios from 'axios'
-import { BASE_URL } from '../../../config'
+import { getItems, postItems } from '../../../service/CRUDService'
 
 import '../Admin.css'
 
@@ -19,12 +17,12 @@ export default function AddNewAudio() {
     const [topicsList, setTopicsList] = useState([])
 
     const addAudio = () => {
-        postItems('admin/audio/new', { ...form })
+        postItems('admin/audio/new', { ...form }, true)
         history.push('/admin/audio')
     }
 
     useEffect(() => {
-        axios.get(`${BASE_URL}audio`).then((res) => {
+        getItems('audio', false).then(res => {
             let set = new Set()
             res.data.map(audio => {
                 set.add(audio.albom)

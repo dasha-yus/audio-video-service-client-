@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 import AudioList from '../common/AudioList'
+import { getItems } from '../../service/CRUDService'
 import './AudioList.css'
-import { BASE_URL } from '../../config'
 
 export default class Audios extends Component {
   state = {
@@ -12,9 +11,7 @@ export default class Audios extends Component {
   };
 
   componentDidMount () {
-    axios.get(`${BASE_URL}audio`).then(res => {
-      this.setState({ audios: res.data })
-    })
+    getItems('audio', false).then(res => this.setState({ audios: res.data }))
   }
 
   postSelectedHandler = (id) => {

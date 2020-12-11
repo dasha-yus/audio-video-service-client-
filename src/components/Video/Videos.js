@@ -1,8 +1,7 @@
 import React, {Component } from 'react'
-import axios from 'axios'
 import './VideoList.css'
 import VideoList from '../common/VideoList'
-import { BASE_URL } from '../../config'
+import { getItems } from '../../service/CRUDService'
 
 export default class Videos extends Component {
   state = {
@@ -12,9 +11,7 @@ export default class Videos extends Component {
   };
 
   componentDidMount () {
-    axios.get(`${BASE_URL}video`).then(res => {
-      this.setState({ videos: res.data })
-    })
+    getItems('video', false).then(res => this.setState({ videos: res.data }))
   }
 
   postSelectedHandler = id => {

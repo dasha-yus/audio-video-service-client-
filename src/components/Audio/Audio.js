@@ -9,24 +9,24 @@ const Audio = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        getItems(`audio/${id}`, setPost, false)
+        getItems(`audio/${id}`, false).then(res => setPost(res.data))
     }, [id])
 
     const likeAudio = (id, numberOfViews) => {
-        putItems(`audio/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews }, setPost)
+        putItems(`audio/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
     }
 
     const unlikeAudio = (id, numberOfViews) => {
-        putItems(`audio/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews }, setPost)
+        putItems(`audio/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
     }
 
     const makeComment = (text, id, userId) => {
-        putItems(`audio/${id}/comment`, { text: text, user: userData.user.name, userId: userId }, setPost)
+        putItems(`audio/${id}/comment`, { text: text, user: userData.user.name, userId: userId }).then(res => setPost(res.data))
         document.getElementById("comment-form").reset()
     }
 
     const addToPlaylist = (audioId, song, singer, image, userId) => {
-        putItems(`audio/add/${ userId }`, { audioId: audioId, song: song, singer: singer, image: image }, null)
+        putItems(`audio/add/${ userId }`, { audioId: audioId, song: song, singer: singer, image: image }).then(res => console.log(res.data))
         alert('The video was successfully added to the playlist')
     }
 

@@ -1,8 +1,6 @@
-import axios from 'axios'
 import React, {Component} from 'react'
-import { putItems } from '../../service/CRUDService'
+import { getItems, putItems } from '../../service/CRUDService'
 import './User.css'
-import { BASE_URL } from '../../config'
 
 export default class EditUser extends Component {
     constructor(props) {
@@ -21,12 +19,7 @@ export default class EditUser extends Component {
     }
 
     componentDidMount() {
-        axios.get(`${BASE_URL}admin/users/` + this.props.match.params.id,
-            {
-                headers: {
-                    'x-auth-token': localStorage.getItem('x-auth-token') 
-                }
-            })
+        getItems(`admin/users/` + this.props.match.params.id, true)
             .then(res => {
                 this.setState({
                     name: res.data.name,
@@ -34,9 +27,7 @@ export default class EditUser extends Component {
                     role: res.data.role
             })
         })
-        .catch((error) => {
-            console.log(error)
-        })
+        .catch(err => console.log(err))
     }
 
     onChangeName(e) {
@@ -60,7 +51,7 @@ export default class EditUser extends Component {
             role: this.state.role
         };
 
-        putItems('admin/users/edit/' + this.props.match.params.id, userObject, null)
+        putItems('admin/users/edit/' + this.props.match.params.id, userObject)
           
         this.props.history.push('/admin/users')
     }

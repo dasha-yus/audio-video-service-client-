@@ -1,10 +1,8 @@
 import React, {useContext, useState} from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import axios from 'axios'
 import UserContext from '../../context/UserContext'
 import ErrorNotice from '../errors/ErrorNotice'
-import { BASE_URL } from '../../config'
-
+import { postItems } from '../../service/CRUDService'
 import './Auth.css'
 
 export default function Login() {
@@ -21,7 +19,7 @@ export default function Login() {
     e.preventDefault()
 
     try {
-      const loginRes = await axios.post(`${BASE_URL}users/login`, { ...form } )
+      const loginRes = await postItems('users/login', { ...form }, false)
       setUserData({
         token: loginRes.data.token,
         user: loginRes.data.user

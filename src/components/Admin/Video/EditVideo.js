@@ -1,8 +1,6 @@
-import axios from 'axios'
 import React, { Component } from 'react'
-import { putItems } from '../../../service/CRUDService'
+import { getItems, putItems } from '../../../service/CRUDService'
 import '../Admin.css'
-import { BASE_URL } from '../../../config'
 
 export default class EditVideo extends Component {
     constructor(props) {
@@ -26,19 +24,16 @@ export default class EditVideo extends Component {
     }
 
     componentDidMount() {
-        axios.get(`${BASE_URL}video/` + this.props.match.params.id)
-          .then(res => {
+        getItems('video/' + this.props.match.params.id, false).then(res => {
             this.setState({
                 topic: res.data.topic,
                 title: res.data.title,
                 image: res.data.image,
                 video: res.data.video,
                 description: res.data.description
-            });
+            })
         })
-        .then(axios.get(`${BASE_URL}video`).then(res => {
-            this.setState({ videos: res.data })
-        }))
+        .then(getItems('video', false).then(res => this.setState({ videos: res.data })))
         .catch((error) => {
             console.log(error)
         })
@@ -83,7 +78,7 @@ export default class EditVideo extends Component {
             description: this.state.description
         };
 
-        putItems('admin/edit/' + this.props.match.params.id, videoObject, null)
+        putItems('admin/edit/' + this.props.match.params.id, videoObject)
             
         this.props.history.push('/admin')
     }

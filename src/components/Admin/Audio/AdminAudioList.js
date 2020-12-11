@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { getItems } from '../../../service/CRUDService'
 import AudioList from '../../common/AudioList'
 import '../Admin.css'
-import { BASE_URL } from '../../../config'
 
 export default class AdminAudioList extends Component {
   state = {
@@ -13,9 +12,7 @@ export default class AdminAudioList extends Component {
   };
 
   componentDidMount () {
-    axios.get(`${BASE_URL}audio`).then(res => {
-      this.setState({ audios: res.data })
-    })
+    getItems('audio', false).then(res => this.setState({ audios: res.data }))
   }
 
   postSelectedHandler = (id) => {

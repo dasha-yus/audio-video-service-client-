@@ -1,8 +1,6 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { postItems } from '../../../service/CRUDService'
-import { BASE_URL } from '../../../config'
+import { getItems, postItems } from '../../../service/CRUDService'
 
 import '../Admin.css'
 
@@ -18,7 +16,7 @@ export default function AddNewVideo() {
     const [topicsList, setTopicsList] = useState([])
 
     useEffect(() => {
-        axios.get(`${BASE_URL}video`).then(res => {
+        getItems('video', false).then(res => {
             let set = new Set()
             res.data.map(video => {
                 set.add(video.topic)
@@ -28,7 +26,7 @@ export default function AddNewVideo() {
     })
 
     const addVideo = () => {
-        postItems('admin/new', { ...form })
+        postItems('admin/new', { ...form }, true)
         history.push('/admin')
     }
     

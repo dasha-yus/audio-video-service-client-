@@ -13,24 +13,24 @@ const Video = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        getItems(`video/${id}`, setPost, false)
+        getItems(`video/${id}`, false).then(res => setPost(res.data))
     }, [id])
 
     const likeVideo = (id, numberOfViews) => {
-        putItems(`video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews }, setPost)
+        putItems(`video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
     }
 
     const unlikeVideo = (id, numberOfViews) => {
-        putItems(`video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews }, setPost)
+        putItems(`video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
     }
 
     const makeComment = (text, id, userId) => {
-        putItems(`video/${id}/comment`, { text: text, user: userData.user.name, userId: userId }, setPost)
+        putItems(`video/${id}/comment`, { text: text, user: userData.user.name, userId: userId }).then(res => setPost(res.data))
         document.getElementById("comment-form").reset()
     }
 
     const addToPlaylist = (videoId, title, image, userId) => {
-        putItems(`video/add/${ userId }`, { videoId: videoId, title: title, image: image }, null)
+        putItems(`video/add/${ userId }`, { videoId: videoId, title: title, image: image }).then(res => console.log(res.data))
         alert('The video was successfully added to the playlist')
     }
 

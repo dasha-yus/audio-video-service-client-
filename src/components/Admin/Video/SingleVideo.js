@@ -9,7 +9,7 @@ const SingleVideo = () => {
     const history = useHistory()
 
     useEffect(() => {
-        getItems(`video/${id}`, setPost, false)
+        getItems(`video/${id}`, false).then(res => setPost(res.data))
     }, [id])
 
     const deleteVideo = (id) => {

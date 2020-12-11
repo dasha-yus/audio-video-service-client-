@@ -8,7 +8,7 @@ const AdminSingleAudio = () => {
     const history = useHistory()
 
     useEffect(() => {
-        getItems(`audio/${id}`, setPost, false)
+        getItems(`audio/${id}`, false).then(res => setPost(res.data))
     }, [id])
 
     const deleteAudio = (id) => {
