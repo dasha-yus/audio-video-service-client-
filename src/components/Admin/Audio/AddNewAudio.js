@@ -18,17 +18,21 @@ export default function AddNewAudio() {
 
     const addAudio = () => {
         postItems('admin/audio/new', { ...form }, true)
+            .then(res => console.log(res))
+            .catch(err => alert(`${err.response.status} error occurred`))
+
         history.push('/admin/audio')
     }
 
     useEffect(() => {
         getItems('audio', false).then(res => {
             let set = new Set()
-            res.data.map(audio => {
+            res.data.forEach(audio => {
                 set.add(audio.albom)
             })
             setTopicsList(Array.from(set))
         })
+        .catch(err => alert(`${err.response.status} error occurred`))
     })
     
     const changeHandler = event => {

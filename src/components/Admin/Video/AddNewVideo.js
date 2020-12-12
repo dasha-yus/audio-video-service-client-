@@ -18,15 +18,19 @@ export default function AddNewVideo() {
     useEffect(() => {
         getItems('video', false).then(res => {
             let set = new Set()
-            res.data.map(video => {
+            res.data.forEach(video => {
                 set.add(video.topic)
             })
             setTopicsList(Array.from(set))
         })
+        .catch(err => alert(`${err.response.status} error occurred`))
     })
 
     const addVideo = () => {
         postItems('admin/new', { ...form }, true)
+            .then(res => console.log(res))
+            .catch(err => alert(`${err.response.status} error occurred`))
+
         history.push('/admin')
     }
     

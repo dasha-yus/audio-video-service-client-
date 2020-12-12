@@ -8,13 +8,18 @@ const AdminSingleAudio = () => {
     const history = useHistory()
 
     useEffect(() => {
-        getItems(`audio/${id}`, false).then(res => setPost(res.data))
+        getItems(`audio/${id}`, false)
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }, [id])
 
     const deleteAudio = (id) => {
         const conf = window.confirm(`Are you sure you want to delete this audio?`)
         if (conf) {
             deleteItems(`admin/audio/delete/${id}`)
+                .then(res => console.log(res))
+                .catch(err => alert(`${err.response.status} error occurred`))
+
             history.push('/admin/audio')
         }
     }
@@ -23,7 +28,7 @@ const AdminSingleAudio = () => {
         <div className='single-post'>
             <h1>{ post?.song }</h1>
             <div className='audio-main'>
-                <img src={post?.image}></img>
+                <img src={post?.image} alt='audio-img'></img>
                 <div>
                     <h6 id='description'>{ post?.description }</h6>
                     <div className='mp3'><audio src={ post?.mp3 } controls/></div>

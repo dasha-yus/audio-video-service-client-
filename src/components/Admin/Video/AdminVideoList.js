@@ -9,10 +9,12 @@ export default class AdminVideoList extends Component {
     videos: [],
     selectedPostId: null,
     search: ""
-  };
+  }
 
   componentDidMount () {
-    getItems('video', false).then(res => this.setState({ videos: res.data }))
+    getItems('video', false)
+      .then(res => this.setState({ videos: res.data }))
+      .catch(err => alert(`${err.response.status} error occurred`))
   }
 
   postSelectedHandler = id => {

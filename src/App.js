@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {BrowserRouter as Router, Switch, Route, useHistory} from "react-router-dom"
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import axios from 'axios'
 
 import UserContext from './context/UserContext'
@@ -34,7 +34,6 @@ function App() {
     token: undefined,
     user: undefined
   })
-  const history = useHistory()
 
   useEffect(() => {
     const ckeckLoggedIn = async () => {

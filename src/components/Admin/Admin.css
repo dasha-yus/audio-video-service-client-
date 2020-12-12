@@ -48,7 +48,7 @@ mark {
 
 .btns {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 30px;
 }
 

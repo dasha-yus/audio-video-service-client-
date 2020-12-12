@@ -19,15 +19,14 @@ export default class EditUser extends Component {
     }
 
     componentDidMount() {
-        getItems(`admin/users/` + this.props.match.params.id, true)
-            .then(res => {
-                this.setState({
-                    name: res.data.name,
-                    email: res.data.email,
-                    role: res.data.role
+        getItems(`admin/users/` + this.props.match.params.id, true).then(res => {
+            this.setState({
+                name: res.data.name,
+                email: res.data.email,
+                role: res.data.role
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => alert(`${err.response.status} error occurred`))
     }
 
     onChangeName(e) {
@@ -52,6 +51,8 @@ export default class EditUser extends Component {
         };
 
         putItems('admin/users/edit/' + this.props.match.params.id, userObject)
+            .then(res => console.log(res))
+            .catch(err => alert(`${err.response.status} error occurred`))
           
         this.props.history.push('/admin/users')
     }

@@ -34,7 +34,7 @@ export default class EditAudio extends Component {
                 mp3: res.data.mp3
             });
         })
-        .catch(err => console.log(err))
+        .catch(err => alert(`${err.response.status} error occurred`))
     }
 
     onChangeSong(e) {
@@ -70,7 +70,9 @@ export default class EditAudio extends Component {
         }
 
         putItems('admin/audio/edit/' + this.props.match.params.id, audioObject)
-            
+            .then(res => console.log(res))
+            .catch(err => alert(`${err.response.status} error occurred`))
+
         this.props.history.push('/admin/audio')
     }
 

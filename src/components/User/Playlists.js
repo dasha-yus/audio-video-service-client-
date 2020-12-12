@@ -10,7 +10,9 @@ const Playlists = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        getItems(`user/${id}`, true).then(res => setUser(res.data))
+        getItems(`user/${id}`, true)
+            .then(res => setUser(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }, [id])
 
     const removeVideoFromPlaylist = (videoId, title, image) => {
@@ -18,6 +20,7 @@ const Playlists = () => {
         if (conf) {
             putItems(`user/${id}/playlists/video`, { id: userData.user.id, videoId: videoId, title: title, image: image })
                 .then(res => setUser(res.data))
+                .catch(err => alert(`${err.response.status} error occurred`))
         }
     }
 
@@ -26,6 +29,7 @@ const Playlists = () => {
         if (conf) {
             putItems(`user/${id}/playlists/audio`, { id: userData.user.id, audioId: audioId, song: song, singer: singer, image: image })
                 .then(res => setUser(res.data))
+                .catch(err => alert(`${err.response.status} error occurred`))
         }
     }
 
@@ -39,7 +43,7 @@ const Playlists = () => {
                     <div className='playlist'>
                         {user?.videoPlaylist.map(video => (
                             <div>
-                                <Link to={`/${ video.videoId }`}><img className='img' src={ video.image }></img></Link>
+                                <Link to={`/${ video.videoId }`}><img className='img' src={ video.image } alt='video'></img></Link>
                                 <h4>{video.title} <i class="fas fa-ban" onClick={() => removeVideoFromPlaylist(video.videoId, video.title, video.image)}></i></h4>
                             </div>
                         ))} 
@@ -48,7 +52,7 @@ const Playlists = () => {
                     <div className='playlist audio-playlist'>
                         {user?.audioPlaylist.map(audio => (
                             <div className='child'>
-                                <Link to={`/audio/${ audio.audioId }`}><img className='img' src={ audio.image }></img></Link>
+                                <Link to={`/audio/${ audio.audioId }`}><img className='img' src={ audio.image } alt='audio'></img></Link>
                                 <h3>{ audio.song } <i class="fas fa-ban" onClick={() => removeAudioFromPlaylist(audio.audioId, audio.song, audio.singer, audio.image)}></i></h3>
                                 <h5>{ audio.singer }</h5>
                             </div>

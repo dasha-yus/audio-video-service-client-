@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { getItems, putItems } from '../../../service/CRUDService'
+import { getVideoTopics } from '../../../utils/utils'
 import '../Admin.css'
 
 export default class EditVideo extends Component {
@@ -34,9 +35,7 @@ export default class EditVideo extends Component {
             })
         })
         .then(getItems('video', false).then(res => this.setState({ videos: res.data })))
-        .catch((error) => {
-            console.log(error)
-        })
+        .catch(err => alert(`${err.response.status} error occurred`))
     }
 
     onChangeTopic(e) {
@@ -59,14 +58,6 @@ export default class EditVideo extends Component {
         this.setState({ description: e.target.value })
     }
 
-    getVideoTopics = array => {
-        let set = new Set()
-        array.map(video => {
-          set.add(video.topic)
-        })
-        return Array.from(set)
-    }
-
     onSubmit(e) {
         e.preventDefault()
 
@@ -79,6 +70,8 @@ export default class EditVideo extends Component {
         };
 
         putItems('admin/edit/' + this.props.match.params.id, videoObject)
+            .then(res => console.log(res))
+            .catch(err => alert(`${err.response.status} error occurred`))
             
         this.props.history.push('/admin')
     }
@@ -90,7 +83,7 @@ export default class EditVideo extends Component {
                     <form onSubmit={this.onSubmit}>
                         <div className='inputs'>
                             <select name="topic" value={ this.state.topic } onChange={this.onChangeTopic} className='input'>
-                                { this.getVideoTopics(this.state.videos).map(topic => (
+                                { getVideoTopics(this.state.videos).map(topic => (
                                     <option>{ topic }</option>
                                 ))}
                             </select>

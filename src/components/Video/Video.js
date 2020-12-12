@@ -13,24 +13,36 @@ const Video = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        getItems(`video/${id}`, false).then(res => setPost(res.data))
+        getItems(`video/${id}`, false)
+            .then(res => setPost(res.data))
+            .catch(err => console.log(`${err.response.status} error occurred`))
     }, [id])
 
     const likeVideo = (id, numberOfViews) => {
-        putItems(`video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
+        putItems(`video/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews })
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }
 
     const unlikeVideo = (id, numberOfViews) => {
-        putItems(`video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
+        putItems(`video/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews })
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }
 
     const makeComment = (text, id, userId) => {
-        putItems(`video/${id}/comment`, { text: text, user: userData.user.name, userId: userId }).then(res => setPost(res.data))
+        putItems(`video/${id}/comment`, { text: text, user: userData.user.name, userId: userId })
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
+
         document.getElementById("comment-form").reset()
     }
 
     const addToPlaylist = (videoId, title, image, userId) => {
-        putItems(`video/add/${ userId }`, { videoId: videoId, title: title, image: image }).then(res => console.log(res.data))
+        putItems(`video/add/${ userId }`, { videoId: videoId, title: title, image: image })
+            .then(res => console.log(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
+
         alert('The video was successfully added to the playlist')
     }
 
@@ -38,7 +50,7 @@ const Video = () => {
         <div className='post'>
             <h1>{ post?.title }</h1>
             <div className='adaptive-wrap'>
-                <iframe width='560' height='315' src={ post?.video }
+                <iframe width='560' height='315' src={ post?.video } title={ post?.title }
                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
                     gyroscope; picture-in-picture" allowfullscreen>
                 </iframe>

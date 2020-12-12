@@ -11,7 +11,9 @@ export default class Audios extends Component {
   };
 
   componentDidMount () {
-    getItems('audio', false).then(res => this.setState({ audios: res.data }))
+    getItems('audio', false)
+      .then(res => this.setState({ audios: res.data }))
+      .catch(err => alert(`${err.response.status} error occurred`))
   }
 
   postSelectedHandler = (id) => {

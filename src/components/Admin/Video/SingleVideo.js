@@ -9,13 +9,18 @@ const SingleVideo = () => {
     const history = useHistory()
 
     useEffect(() => {
-        getItems(`video/${id}`, false).then(res => setPost(res.data))
+        getItems(`video/${id}`, false)
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }, [id])
 
     const deleteVideo = (id) => {
         const conf = window.confirm(`Are you sure you want to delete this video?`)
         if (conf) {
             deleteItems(`admin/delete/${id}`)
+                .then(res => console.log(res))
+                .catch(err => alert(`${err.response.status} error occurred`))
+
             history.push('/admin')
         }
     }
@@ -24,7 +29,7 @@ const SingleVideo = () => {
         <div className='post'>
             <h1>{ post?.title }</h1>
             <div className='adaptive-wrap'>
-                <iframe width='560' height='315' src={ post?.video }
+                <iframe width='560' height='315' src={ post?.video } title={ post?.title }
                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
                     gyroscope; picture-in-picture" allowfullscreen>
                 </iframe>

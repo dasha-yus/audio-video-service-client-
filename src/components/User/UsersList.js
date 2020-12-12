@@ -9,19 +9,20 @@ export default class UsersList extends Component {
   }
 
   componentDidMount () {
-    getItems('admin/users/', true).then(res => {
-      this.setState({ 'users': res.data })
-    })
+    getItems('admin/users/', true)
+      .then(res => this.setState({ 'users': res.data }))
+      .catch(err => alert(`${err.response.status} error occurred`))
   }
 
   deleteUser = (id) => {
     const conf = window.confirm(`Are you sure you want to delete the user?`)
     if (conf) {
-      deleteItems(`admin/users/delete/${id}`).then(res => {
-        const users = this.state.users.filter(user => user._id !== id)
-        this.setState({ users })
-      })
-      .catch(err => console.log(err))
+      deleteItems(`admin/users/delete/${id}`)
+        .then(res => {
+          const users = this.state.users.filter(user => user._id !== id)
+          this.setState({ users })
+        })
+        .catch(err => alert(`${err.response.status} error occurred`))
     }
   }
 

@@ -9,24 +9,36 @@ const Audio = () => {
     const { userData } = useContext(UserContext)
 
     useEffect(() => {
-        getItems(`audio/${id}`, false).then(res => setPost(res.data))
+        getItems(`audio/${id}`, false)
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }, [id])
 
     const likeAudio = (id, numberOfViews) => {
-        putItems(`audio/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
+        putItems(`audio/${id}/like`, { userId: userData.user.id, numberOfViews: numberOfViews })
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }
 
     const unlikeAudio = (id, numberOfViews) => {
-        putItems(`audio/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews }).then(res => setPost(res.data))
+        putItems(`audio/${id}/unlike`, { userId: userData.user.id, numberOfViews: numberOfViews })
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
     }
 
     const makeComment = (text, id, userId) => {
-        putItems(`audio/${id}/comment`, { text: text, user: userData.user.name, userId: userId }).then(res => setPost(res.data))
+        putItems(`audio/${id}/comment`, { text: text, user: userData.user.name, userId: userId })
+            .then(res => setPost(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
+
         document.getElementById("comment-form").reset()
     }
 
     const addToPlaylist = (audioId, song, singer, image, userId) => {
-        putItems(`audio/add/${ userId }`, { audioId: audioId, song: song, singer: singer, image: image }).then(res => console.log(res.data))
+        putItems(`audio/add/${ userId }`, { audioId: audioId, song: song, singer: singer, image: image })
+            .then(res => console.log(res.data))
+            .catch(err => alert(`${err.response.status} error occurred`))
+
         alert('The video was successfully added to the playlist')
     }
 
@@ -34,7 +46,7 @@ const Audio = () => {
         <div className='single-post'>
             <h1>{ post?.song }</h1>
             <div className='audio-main'>
-                <img src={post?.image}></img>
+                <img src={post?.image} alt='audio-img'></img>
                 <div>
                     <h6 id='description'>{ post?.description }</h6>
                     <div className='mp3'><audio src={ post?.mp3 } controls/></div>
