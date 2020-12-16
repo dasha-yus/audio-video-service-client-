@@ -63,6 +63,21 @@ function App() {
     ckeckLoggedIn()
   }, [])
 
+  const RoutesForUser = () => {
+    return (
+      <Switch>
+        <Route path="/" exact component={VideoList} />
+        <Route path="/audio" exact component={AudioList} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/:id" exact component={Video}></Route>
+        <Route path="/audio/:id" exact component={Audio}></Route>
+        <Route path="/user/:id/playlists" exact component={Playlists}></Route> 
+        <Route path='*' exact component={Error404} />
+      </Switch>
+    )
+  }
+
   if (userData.user) {
     if (userData.user.role === 'admin') {
       return (
@@ -96,16 +111,7 @@ function App() {
           <UserContext.Provider value={{ userData, setUserData }}>
             <div className="app">
               <Navbar />
-              <Switch>
-                <Route path="/" exact component={VideoList} />
-                <Route path="/audio" exact component={AudioList} />
-                <Route path="/login" exact component={Login} />
-                <Route path="/register" exact component={Register} />
-                <Route path="/:id" exact component={Video}></Route>
-                <Route path="/audio/:id" exact component={Audio}></Route>
-                <Route path="/user/:id/playlists" exact component={Playlists}></Route> 
-                <Route path='*' exact component={Error404} />
-              </Switch>
+              <RoutesForUser />
               <Footer />
             </div>
           </UserContext.Provider>  
@@ -118,16 +124,7 @@ function App() {
         <UserContext.Provider value={{ userData, setUserData }}>
           <div className="app">
             <Navbar />
-            <Switch>
-              <Route path="/" exact component={VideoList} />
-              <Route path="/audio" exact component={AudioList} />
-              <Route path="/login" exact component={Login} />
-              <Route path="/register" exact component={Register} />
-              <Route path="/:id" exact component={Video}></Route>
-              <Route path="/audio/:id" exact component={Audio}></Route>
-              <Route path="/user/:id/playlists" exact component={Playlists}></Route> 
-              <Route path='*' exact component={Error404} />
-            </Switch>
+            <RoutesForUser />
             <Footer />
           </div>
         </UserContext.Provider>  

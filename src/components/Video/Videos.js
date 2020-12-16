@@ -1,5 +1,4 @@
 import React, {Component } from 'react'
-import './VideoList.css'
 import VideoList from '../common/VideoList'
 import { getItems } from '../../service/CRUDService'
 

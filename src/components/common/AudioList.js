@@ -35,8 +35,8 @@ const AudioList = ({ audios, search, link }) => {
             </Link>
           ))}
         </div>
-        { getAlboms(audios).map(albom => (
-          <div>
+        { getAlboms(audios).map((albom, i) => (
+          <div key={i}>
             <div className='category'>
               <h2>{ albom }</h2>
               {!localStorage.getItem('x-auth-token') || localStorage.getItem('userRole') !== 'admin'

@@ -83,8 +83,8 @@ export default class EditVideo extends Component {
                     <form onSubmit={this.onSubmit}>
                         <div className='inputs'>
                             <select name="topic" value={ this.state.topic } onChange={this.onChangeTopic} className='input'>
-                                { getVideoTopics(this.state.videos).map(topic => (
-                                    <option>{ topic }</option>
+                                { getVideoTopics(this.state.videos).map((topic, i) => (
+                                    <option key={i}>{ topic }</option>
                                 ))}
                             </select>
                             <div className='input'>

@@ -5,14 +5,12 @@
 h2 {
     color: rgb(29, 29, 29);
     font-size: 25px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 30px 80px;
 }
 
 h4 {
     color: rgb(29, 29, 29);
     font-size: 15px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: center;
     margin-left: -28px;
     padding-top: 5px;
@@ -76,7 +74,6 @@ mark {
 #topic {
     color: coral;
     font-size: 20px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .edit-video {

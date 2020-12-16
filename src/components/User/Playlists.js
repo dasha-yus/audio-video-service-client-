@@ -41,8 +41,8 @@ const Playlists = () => {
                 <div>
                     <h2>Video</h2>
                     <div className='playlist'>
-                        {user?.videoPlaylist.map(video => (
-                            <div>
+                        {user?.videoPlaylist.map((video, i) => (
+                            <div key={i}>
                                 <Link to={`/${ video.videoId }`}><img className='img' src={ video.image } alt='video'></img></Link>
                                 <h4>{video.title} <i class="fas fa-ban" onClick={() => removeVideoFromPlaylist(video.videoId, video.title, video.image)}></i></h4>
                             </div>
@@ -50,8 +50,8 @@ const Playlists = () => {
                     </div>
                     <h2 className='audio-playlist-title'>Audio</h2>
                     <div className='playlist audio-playlist'>
-                        {user?.audioPlaylist.map(audio => (
-                            <div className='child'>
+                        {user?.audioPlaylist.map((audio, i) => (
+                            <div className='child' key={i}>
                                 <Link to={`/audio/${ audio.audioId }`}><img className='img' src={ audio.image } alt='audio'></img></Link>
                                 <h3>{ audio.song } <i class="fas fa-ban" onClick={() => removeAudioFromPlaylist(audio.audioId, audio.song, audio.singer, audio.image)}></i></h3>
                                 <h5>{ audio.singer }</h5>

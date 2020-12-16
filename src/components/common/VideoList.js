@@ -29,8 +29,8 @@ const VideoList = ({ videos, search, link }) => {
       </div>
       <div>
         { getVideoTopics(videos).map((topic, i) => (
-          <div>
-            <div className='category' key={i}>
+          <div key={i}>
+            <div className='category'>
               <h2>{topic}</h2>
               {!localStorage.getItem('x-auth-token') || localStorage.getItem('userRole') !== 'admin'
               ? <span />

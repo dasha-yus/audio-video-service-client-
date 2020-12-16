@@ -3,8 +3,6 @@ import AuthOptions from '../Auth/AuthOptions'
 import NavbarOptions from './NavbarOptions'
 import LogoOptions from './LogoOptions'
 
-import './Navbar.css'
-
 export default class Navbar extends Component {
   render() {
     return (

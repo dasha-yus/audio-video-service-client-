@@ -47,8 +47,8 @@ export default function AddNewAudio() {
                         <div className='input'>
                             <input id='topic' type="text" list='alboms' name="albom" value={form.albom} onChange={changeHandler} placeholder='Select an albom'></input>
                             <datalist id='alboms' name="albom" value={form.albom} onChange={changeHandler}>
-                                 {topicsList.map(albom => (
-                                    <option>{albom}</option>
+                                 {topicsList.map((albom, i) => (
+                                    <option key={i}>{albom}</option>
                                 ))}
                             </datalist>
                             <i class="fas fa-compact-disc"></i>

@@ -67,7 +67,7 @@ export default function Login() {
                         value={ form.email }
                         onChange={ changeHandler }
                       />
-                      <i class="fas fa-at"></i>
+                      <i className="fas fa-at"></i>
                   </div>
                   <div className='input'>
                       <input

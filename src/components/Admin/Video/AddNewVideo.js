@@ -46,8 +46,8 @@ export default function AddNewVideo() {
                         <div className='input'>
                             <input id='topic' type="text" list='topics' name="topic" value={ form.topic } onChange={ changeHandler } placeholder='Select a topic'></input>
                             <datalist id='topics' name="topic" value={form.topic} onChange={ changeHandler }>
-                                {topicsList.map(topic => (
-                                    <option>{ topic }</option>
+                                {topicsList.map((topic, i) => (
+                                    <option key={i}>{ topic }</option>
                                 ))}
                             </datalist>
                             <i class="fas fa-paragraph"></i>

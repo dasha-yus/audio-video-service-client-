@@ -1,6 +1,6 @@
 import axios from 'axios'
-
 import { BASE_URL } from '../config'
+import { logoff } from '../utils/utils'
 
 const AxiosInstance = axios.create()
 
@@ -16,12 +16,7 @@ AxiosInstance.interceptors.response.use(response => {
     return response
 }, error => {
     if (error.response.status === 401) {
-        localStorage.setItem('auth-token', '')
-        localStorage.removeItem('userId')
-        localStorage.removeItem('username')
-        localStorage.removeItem('userRole')
-        localStorage.setItem('isAuth', false)
-        localStorage.removeItem('x-auth-token')
+        logoff()
         window.location = '/login'
     }
     return Promise.reject(error)

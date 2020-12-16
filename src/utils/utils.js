@@ -18,3 +18,12 @@ export function getVideoTopics(array) {
   })
   return Array.from(set)
 }
+
+export function logoff() {
+  localStorage.setItem('auth-token', '')
+  localStorage.removeItem('userId')
+  localStorage.removeItem('username')
+  localStorage.removeItem('userRole')
+  localStorage.setItem('isAuth', false)
+  localStorage.removeItem('x-auth-token')
+}

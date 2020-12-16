@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import UserContext from '../../context/UserContext'
+import { logoff } from '../../utils/utils'
 
 export default function AuthOptions() {
     const { userData, setUserData } = useContext(UserContext)
@@ -12,12 +13,7 @@ export default function AuthOptions() {
             token: undefined,
             user: undefined
         })
-        localStorage.setItem('auth-token', '')
-        localStorage.removeItem('userId')
-        localStorage.removeItem('username')
-        localStorage.removeItem('userRole')
-        localStorage.setItem('isAuth', false)
-        localStorage.removeItem('x-auth-token')
+        logoff()
         history.push('/')
     }
 

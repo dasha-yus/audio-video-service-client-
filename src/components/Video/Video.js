@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from "react-router-dom"
-import { Link } from 'react-router-dom';
 import UserContext from '../../context/UserContext'
 import { getItems, putItems } from '../../service/CRUDService'
-
-import './Video.css'
+import SectionsUnderThePost from '../common/SectionsUnderThePost'
 
 const Video = () => {
     const { id } = useParams()
@@ -57,50 +55,14 @@ const Video = () => {
             </div>
             <h6>{ post?.description }</h6>
 
-            {/* like the video */}
-            <div className='likes'>
-                { userData.user ?
-                    userData.user.role !== 'user'
-                    ? <span />
-                    : post?.likes.includes(userData.user.id)
-                        ? <i class="fas fa-thumbs-down like" onClick={() => { unlikeVideo(post?._id, post?.numberOfViews) }}></i>
-                        : <i class="fas fa-thumbs-up like" onClick={() => { likeVideo(post?._id, post?.numberOfViews) }}></i>
-                : <span />}
-                <h6>{ post?.likes.length } likes<br/><br/>{ post?.numberOfViews } views</h6>
-            </div>
-            
-            {/* add to playlist */}
-            {userData.user ?
-                userData.user.role !== 'user'
-                    ? <span />
-                    : <Link onClick={() => addToPlaylist(post?._id, post?.title, post?.image, userData.user.id)} className='button edit'>Add to Playlist</Link>
-                : <span />
-            }
-
-            {/* add a comment */}
-            { userData.user ?
-                userData.user.role !== 'user'
-                ? <span />
-                : (
-                    <form id='comment-form' onSubmit={(e) => {
-                        e.preventDefault()
-                        makeComment(e.target[0].value, post?._id, userData.user.id)
-                    }} className='comment-form'>
-                        <textarea class='form-control' name="text" placeholder="Add a comment"></textarea>
-                        <button id='submit'>Submit</button>
-                    </form>
-                ) : <span />
-            }
-
-            {/* comments block */}
-            <div className="comments">
-                {post?.comments.map((comment, i) => (
-                    <div className="comment" key={i}>
-                        <div className="username"><strong>{ comment.user }</strong></div>
-					    <div class="text">{ comment.text }</div>
-                    </div>
-                ))}
-		    </div>
+            <SectionsUnderThePost
+                like = { likeVideo }
+                unlike = { unlikeVideo }
+                addToPlaylist = { addToPlaylist }
+                makeComment = { makeComment }
+                post = { post }
+                type = 'video'
+            />
         </div>
     );
 }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import AudioList from '../common/AudioList'
 import { getItems } from '../../service/CRUDService'
-import './AudioList.css'
 
 export default class Audios extends Component {
   state = {
